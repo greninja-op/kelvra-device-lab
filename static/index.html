@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KELVRA Device Lab — Control Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="brand-group">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-title">KELVRA</span>
+          <span class="brand-subtitle">DEVICE LAB</span>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="status-indicator">
+          <span class="status-dot live"></span>
+          <span class="status-label">PORT 8098 ACTIVE</span>
+        </div>
+        <div class="divider-v"></div>
+        <div class="bench-link">
+          <svg class="bench-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>BENCH BRIDGE READY</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button id="btn-refresh-devices" class="btn btn-secondary">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          Scan Fleet
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="workspace-grid">
+      <!-- Left Rail: Device Fleet -->
+      <aside class="sidebar-fleet">
+        <div class="panel-header">
+          <h2 class="panel-title">Attached Devices</h2>
+          <span id="device-count-badge" class="badge">0</span>
+        </div>
+        <div id="device-list" class="device-list">
+          <!-- Populated by JavaScript -->
+          <div class="empty-state">
+            <p>Scanning ADB bus for attached devices...</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Stage: Screen Mirror & Input Canvas -->
+      <section class="stage-mirror">
+        <div class="mirror-container">
+          <div class="mirror-header">
+            <div class="mirror-device-info">
+              <span id="active-device-title" class="device-title">No Device Selected</span>
+              <span id="active-device-specs" class="device-specs">—</span>
+            </div>
+            <div class="mirror-controls">
+              <button id="btn-toggle-stream" class="btn btn-sm btn-secondary">
+                <span class="btn-dot live"></span>
+                <span id="stream-label">Pause Stream</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="canvas-viewport" id="viewport-container">
+            <canvas id="device-canvas" width="360" height="800"></canvas>
+            <div id="canvas-overlay" class="canvas-overlay">
+              <span class="overlay-text">Select a device from fleet</span>
+            </div>
+          </div>
+
+          <!-- Hardware Keys Bar -->
+          <div class="hardware-keyrail">
+            <button class="key-btn" data-key="BACK" title="Back">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <span>Back</span>
+            </button>
+            <button class="key-btn" data-key="HOME" title="Home">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="7"></circle>
+              </svg>
+              <span>Home</span>
+            </button>
+            <button class="key-btn" data-key="APP_SWITCH" title="Overview / Recents">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+              </svg>
+              <span>Recents</span>
+            </button>
+            <div class="key-divider"></div>
+            <button class="key-btn" data-key="VOLUME_DOWN" title="Volume Down">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span>Vol -</span>
+            </button>
+            <button class="key-btn" data-key="VOLUME_UP" title="Volume Up">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span>Vol +</span>
+            </button>
+            <button class="key-btn" data-key="POWER" title="Power / Lock">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                <line x1="12" y1="2" x2="12" y2="12"></line>
+              </svg>
+              <span>Power</span>
+            </button>
+          </div>
+
+          <!-- Typing Input Bar -->
+          <div class="text-input-bar">
+            <input type="text" id="type-input" placeholder="Type text to inject via ADB keyboard..." class="form-input">
+            <button id="btn-send-text" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Rail: Telemetry & Actions -->
+      <aside class="sidebar-telemetry">
+        <div class="panel-section">
+          <h2 class="panel-title">Hardware Telemetry</h2>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">CPU LOAD</span>
+              <span id="metric-cpu" class="metric-value">-- %</span>
+              <div class="meter-bar"><div id="bar-cpu" class="meter-fill" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">RAM USAGE</span>
+              <span id="metric-ram" class="metric-value">-- MB</span>
+              <div class="meter-bar"><div id="bar-ram" class="meter-fill" style="width: 0%"></div></div>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">BATTERY</span>
+              <span id="metric-battery" class="metric-value">-- %</span>
+              <span id="metric-temp" class="metric-sub">-- °C</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">INTERNAL STORAGE</span>
+              <span id="metric-storage" class="metric-value">-- GB</span>
+              <div class="meter-bar"><div id="bar-storage" class="meter-fill" style="width: 0%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h2 class="panel-title">App Orchestration</h2>
+          <div class="action-form">
+            <label class="form-label" for="app-package-input">Package / Activity</label>
+            <input type="text" id="app-package-input" class="form-input" value="com.kelvra.mobile">
+            <div class="btn-group">
+              <button id="btn-launch-app" class="btn btn-secondary">Launch App</button>
+              <button id="btn-stop-app" class="btn btn-secondary">Force Stop</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h2 class="panel-title">Test Runner</h2>
+          <button id="btn-run-smoke" class="btn btn-primary btn-block">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Execute Smoke Test
+          </button>
+          <div id="test-report-card" class="test-report hidden">
+            <div class="report-header">
+              <span id="test-status-pill" class="pill">PASSED</span>
+              <span id="test-id-label" class="report-id">test-0</span>
+            </div>
+            <ul id="test-steps-list" class="steps-list"></ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Bottom Logcat Console Drawer -->
+    <footer class="console-drawer">
+      <div class="console-header">
+        <div class="console-title-group">
+          <svg class="console-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          <span class="console-title">Live Logcat Stream</span>
+          <span id="log-count" class="badge">0 lines</span>
+        </div>
+
+        <div class="console-controls">
+          <select id="log-level-filter" class="form-select">
+            <option value="ALL">All Levels</option>
+            <option value="V">Verbose (V+)</option>
+            <option value="D">Debug (D+)</option>
+            <option value="I" selected>Info (I+)</option>
+            <option value="W">Warning (W+)</option>
+            <option value="E">Error (E+)</option>
+          </select>
+          <input type="text" id="log-search-input" placeholder="Filter tag or message..." class="form-input form-input-sm">
+          <button id="btn-autoscroll" class="btn btn-sm btn-secondary active">Auto-Scroll</button>
+          <button id="btn-clear-logs" class="btn btn-sm btn-secondary">Clear</button>
+        </div>
+      </div>
+
+      <div id="logcat-viewport" class="logcat-viewport">
+        <!-- Log lines dynamically injected here -->
+      </div>
+    </footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
