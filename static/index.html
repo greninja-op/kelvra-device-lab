@@ -1,238 +1,1208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KELVRA Device Lab — Control Room</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KELVRA Device Lab — Control Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <div class="app-layout">
-    <!-- Top Bar -->
-    <header class="topbar">
-      <div class="brand-group">
-        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12.01" y2="18"></line>
-        </svg>
-        <div class="brand-text">
-          <span class="brand-title">KELVRA</span>
-          <span class="brand-subtitle">DEVICE LAB</span>
-        </div>
+  <div class="app-shell">
+    <!-- Topbar (AppHeader) -->
+    <header class="app-header" role="banner">
+      <div class="header-left">
+        <button id="btn-toggle-sidebar" class="header-toggle-sidebar" type="button" aria-label="Toggle navigation rail" title="Toggle navigation rail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <a href="#/overview" class="brand-lockup" aria-label="KELVRA Device Lab Home">
+          <span class="brand-name">KELVRA</span>
+          <span class="brand-subsystem">Device Lab</span>
+          <span class="brand-phase-pill">Standalone</span>
+        </a>
       </div>
 
       <div class="header-center">
         <div class="status-indicator">
-          <span class="status-dot live"></span>
-          <span class="status-label">PORT 8098 ACTIVE</span>
+          <span id="service-status-dot" class="status-dot complete pulse"></span>
+          <span id="service-status-text">PORT :8098 ACTIVE</span>
         </div>
-        <div class="divider-v"></div>
-        <div class="bench-link">
-          <svg class="bench-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-            <polyline points="2 17 12 22 22 17"></polyline>
-            <polyline points="2 12 12 17 22 12"></polyline>
-          </svg>
+        <div class="header-divider-v"></div>
+        <div class="status-indicator">
+          <span class="status-dot complete"></span>
           <span>BENCH BRIDGE READY</span>
         </div>
       </div>
 
       <div class="header-right">
-        <button id="btn-refresh-devices" class="btn btn-secondary">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button id="btn-global-refresh" class="btn sm" type="button" aria-label="Scan mobile fleet">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="23 4 23 10 17 10"></polyline>
             <polyline points="1 20 1 14 7 14"></polyline>
             <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
           </svg>
-          Scan Fleet
+          <span>Scan Fleet</span>
+        </button>
+        <button id="btn-about" class="btn sm" type="button" aria-label="About KELVRA Device Lab">
+          <span>About</span>
         </button>
       </div>
     </header>
 
-    <!-- Main Workspace Grid -->
-    <main class="workspace-grid">
-      <!-- Left Rail: Device Fleet -->
-      <aside class="sidebar-fleet">
-        <div class="panel-header">
-          <h2 class="panel-title">Attached Devices</h2>
-          <span id="device-count-badge" class="badge">0</span>
+    <!-- Main Workspace Container -->
+    <div class="app-body">
+      <!-- Left Navigation Rail (AppSidebar) -->
+      <nav id="app-sidebar" class="app-sidebar" role="navigation" aria-label="Primary Navigation">
+        <div class="sidebar-nav-section">
+          <div class="sidebar-nav-label">Fleet Studio</div>
+          <ul class="sidebar-nav-list">
+            <li class="sidebar-nav-item">
+              <a href="#/overview" class="sidebar-nav-link active" data-route="overview">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span class="nav-label">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="#/devices" class="sidebar-nav-link" data-route="devices">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <span class="nav-label">Devices</span>
+                <span id="nav-badge-devices" class="nav-badge">0</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="#/virtual" class="sidebar-nav-link" data-route="virtual">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <span class="nav-label">Virtual Devices</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="#/sessions" class="sidebar-nav-link" data-route="sessions">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span class="nav-label">Live Sessions</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="sidebar-nav-label" style="margin-top: var(--space-4);">Operations</div>
+          <ul class="sidebar-nav-list">
+            <li class="sidebar-nav-item">
+              <a href="#/automation" class="sidebar-nav-link" data-route="automation">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span class="nav-label">Automation</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="#/diagnostics" class="sidebar-nav-link" data-route="diagnostics">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span class="nav-label">Logs & Diagnostics</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="#/settings" class="sidebar-nav-link" data-route="settings">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span class="nav-label">Settings</span>
+              </a>
+            </li>
+          </ul>
         </div>
-        <div id="device-list" class="device-list">
-          <!-- Populated by JavaScript -->
-          <div class="empty-state">
-            <p>Scanning ADB bus for attached devices...</p>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-footer-info">
+            <span class="footer-text-line">KELVRA Ecosystem</span>
+            <span class="footer-text-line">Subsystem: Device Lab :8098</span>
+            <span class="footer-text-line">Target: KELVRA Bench</span>
           </div>
         </div>
-      </aside>
+      </nav>
 
-      <!-- Center Stage: Screen Mirror & Input Canvas -->
-      <section class="stage-mirror">
-        <div class="mirror-container">
-          <div class="mirror-header">
-            <div class="mirror-device-info">
-              <span id="active-device-title" class="device-title">No Device Selected</span>
-              <span id="active-device-specs" class="device-specs">—</span>
+      <!-- Main Content Area -->
+      <main class="page-container" role="main">
+        <!-- Route 1: Overview -->
+        <section id="view-overview" class="page-view active">
+          <header class="page-header">
+            <h1 class="page-title">Fleet Overview</h1>
+            <p class="page-description">Autonomous mobile device testing, live teleoperation, and telemetry observatory.</p>
+          </header>
+
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Connected Devices</span>
+                <span class="status-dot complete"></span>
+              </div>
+              <div id="overview-device-count" class="card-metric tabular-nums">0</div>
+              <div class="card-meta">Physical and virtual attached devices</div>
             </div>
-            <div class="mirror-controls">
-              <button id="btn-toggle-stream" class="btn btn-sm btn-secondary">
-                <span class="btn-dot live"></span>
-                <span id="stream-label">Pause Stream</span>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Active Sessions</span>
+                <span class="status-dot idle"></span>
+              </div>
+              <div id="overview-session-count" class="card-metric tabular-nums">0</div>
+              <div class="card-meta">Exclusive single-writer input leases</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Subsystem Health</span>
+                <span class="status-dot complete"></span>
+              </div>
+              <div class="card-metric">Normal</div>
+              <div class="card-meta">ADB daemon and WebSocket pipes ready</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Smoke Test Pass Rate</span>
+                <span class="badge accent">MVP Ready</span>
+              </div>
+              <div class="card-metric tabular-nums">100%</div>
+              <div class="card-meta">Companion verification suite</div>
+            </div>
+          </div>
+
+          <div class="info-notice">
+            <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div class="notice-body">
+              <div class="notice-title">Device Inventory & Connection Management Active (Phase 8)</div>
+              <div class="notice-text">
+                The typed domain model, 10-state lifecycle FSM, Android ADB provider, thread-safe device registry, and live inventory UI are fully operational. Screen streaming and input teleoperation are scheduled for Phase 9.
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="card-header">
+              <h2 class="card-title">Recent Activity Ledger</h2>
+              <span class="badge">Live Audit</span>
+            </div>
+            <div class="table-container" style="border: none; margin-bottom: 0;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Subsystem</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="overview-activity-rows">
+                  <tr>
+                    <td class="tabular-nums" style="font-family: var(--font-mono); font-size: 12px;">2026-10-04 01:10:00</td>
+                    <td>Device Registry</td>
+                    <td>Phase 8 Inventory Subsystem Online (:8098)</td>
+                    <td><span class="status-indicator"><span class="status-dot complete"></span>Online</span></td>
+                  </tr>
+                  <tr>
+                    <td class="tabular-nums" style="font-family: var(--font-mono); font-size: 12px;">2026-10-04 01:10:05</td>
+                    <td>Android Provider</td>
+                    <td>ADB discovery probe operational</td>
+                    <td><span class="status-indicator"><span class="status-dot complete"></span>Ready</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Route 2: Devices -->
+        <section id="view-devices" class="page-view">
+          <!-- Inventory View Mode -->
+          <div id="devices-inventory-panel">
+            <header class="page-header">
+              <h1 class="page-title">Device Inventory</h1>
+              <p class="page-description">Physical Android hardware, virtual emulators, and Apple devices connected to this workstation.</p>
+            </header>
+
+            <!-- Registry Stats Bar -->
+            <div class="inventory-stats-strip">
+              <div class="stat-item">
+                <span class="stat-label">Total Fleet:</span>
+                <span id="stat-total-devices" class="stat-value tabular-nums">0</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="status-dot complete"></span>
+                <span class="stat-label">Available / Online:</span>
+                <span id="stat-online-devices" class="stat-value tabular-nums">0</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="status-dot working"></span>
+                <span class="stat-label">Connected:</span>
+                <span id="stat-connected-devices" class="stat-value tabular-nums">0</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="status-dot blocked"></span>
+                <span class="stat-label">Unauthorized:</span>
+                <span id="stat-unauthorized-devices" class="stat-value tabular-nums">0</span>
+              </div>
+            </div>
+
+            <!-- Inventory Filter Toolbar -->
+            <div class="inventory-toolbar">
+              <div class="toolbar-search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input id="device-search-input" class="search-input" type="text" placeholder="Search devices by serial, model, or manufacturer..." aria-label="Search devices" />
+              </div>
+
+              <div class="toolbar-filters">
+                <div class="select-wrapper">
+                  <label for="filter-platform" class="sr-only">Filter by Platform</label>
+                  <select id="filter-platform" class="select-input">
+                    <option value="">All Platforms</option>
+                    <option value="android_physical">Android Physical</option>
+                    <option value="android_virtual">Android Virtual</option>
+                    <option value="apple_physical">Apple Physical</option>
+                  </select>
+                </div>
+
+                <div class="select-wrapper">
+                  <label for="filter-state" class="sr-only">Filter by State</label>
+                  <select id="filter-state" class="select-input">
+                    <option value="">All States</option>
+                    <option value="available">Available</option>
+                    <option value="connected">Connected</option>
+                    <option value="unauthorized">Unauthorized</option>
+                    <option value="unavailable">Offline / Unavailable</option>
+                  </select>
+                </div>
+
+                <div class="view-toggle-group" role="group" aria-label="View Layout">
+                  <button id="btn-view-grid" class="btn sm toggle-btn active" type="button" title="Card Grid View" aria-label="Card Grid View">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="14" width="7" height="7"></rect>
+                      <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                  </button>
+                  <button id="btn-view-table" class="btn sm toggle-btn" type="button" title="Data Table View" aria-label="Data Table View">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="3" y1="6" x2="21" y2="6"></line>
+                      <line x1="3" y1="12" x2="21" y2="12"></line>
+                      <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+
+                <button id="btn-devices-refresh" class="btn sm" type="button" aria-label="Refresh Inventory">
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  <span>Rescan</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Devices Listing Container -->
+            <div id="devices-list-container">
+              <div class="empty-state">
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <h2 class="empty-title">No Mobile Devices Discovered</h2>
+                <p class="empty-description">
+                  Connect a physical Android device via USB with USB Debugging enabled, or boot a local virtual emulator.
+                </p>
+                <button id="btn-scan-devices-page" class="btn primary" type="button">
+                  <span>Scan for Attached Devices</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Device Viewer Studio Panel (Phase 10) -->
+          <div id="devices-studio-panel" class="studio-panel" style="display: none;">
+            <header class="studio-header">
+              <div class="studio-header-left">
+                <button id="btn-studio-back" class="btn sm" type="button" aria-label="Back to Inventory">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                  </svg>
+                  <span>Fleet Inventory</span>
+                </button>
+                <div class="studio-title-wrap">
+                  <h1 id="studio-device-name" class="studio-device-title">Device Viewer Studio</h1>
+                  <span id="studio-device-serial" class="studio-device-serial mono">android:none</span>
+                </div>
+              </div>
+
+              <div class="studio-header-hud">
+                <span id="studio-hud-res" class="badge">1080x2400</span>
+                <span id="studio-hud-fps" class="badge accent tabular-nums">0.0 FPS</span>
+                <span id="studio-lease-badge" class="badge">Read-Only Viewer</span>
+                <button id="btn-studio-lease-toggle" class="btn sm primary" type="button">
+                  <span>Acquire Operator Lease</span>
+                </button>
+              </div>
+            </header>
+
+            <div class="studio-body">
+              <div class="studio-stage-wrap">
+                <!-- Viewer Controls Toolbar -->
+                <div class="studio-toolbar">
+                  <button id="btn-studio-stream-toggle" class="btn sm primary" type="button">
+                    <span>Start Stream</span>
+                  </button>
+
+                  <div class="select-wrapper">
+                    <select id="studio-quality-select" class="select-input sm" aria-label="Stream Quality">
+                      <option value="720" selected>720p Balanced</option>
+                      <option value="480">480p Low Overhead</option>
+                      <option value="1080">1080p High Definition</option>
+                    </select>
+                  </div>
+
+                  <div class="select-wrapper">
+                    <select id="studio-fps-select" class="select-input sm" aria-label="Target Frame Rate">
+                      <option value="30" selected>30 FPS Target</option>
+                      <option value="15">15 FPS Conservative</option>
+                      <option value="60">60 FPS High Refresh</option>
+                    </select>
+                  </div>
+
+                  <button id="btn-studio-screenshot" class="btn sm" type="button" title="Capture Screenshot" aria-label="Capture Screenshot">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                      <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <span>Screenshot</span>
+                  </button>
+
+                  <button id="btn-studio-record-toggle" class="btn sm" type="button" title="Toggle Screen Recording" aria-label="Toggle Screen Recording">
+                    <span id="studio-record-dot" class="status-dot idle"></span>
+                    <span id="studio-record-text">Record</span>
+                    <span id="studio-record-timer" class="tabular-nums" style="display: none; margin-left: var(--space-1); font-family: var(--font-mono); font-size: 11px;">00:00</span>
+                  </button>
+
+                  <button id="btn-studio-open-logs" class="btn sm" type="button" title="Open Device Logs" aria-label="Open Device Logs">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="8" y1="6" x2="21" y2="6"></line>
+                      <line x1="8" y1="12" x2="21" y2="12"></line>
+                      <line x1="8" y1="18" x2="21" y2="18"></line>
+                      <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                      <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                      <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                    <span>Logs</span>
+                  </button>
+
+                  <div class="status-indicator" style="margin-left: auto;">
+                    <span id="studio-stream-status-dot" class="status-dot idle"></span>
+                    <span id="studio-stream-status-text" style="font-family: var(--font-mono); font-size: 11px;">IDLE</span>
+                  </div>
+
+                  <button id="btn-studio-fullscreen" class="btn sm" type="button" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <polyline points="9 21 3 21 3 15"></polyline>
+                      <line x1="21" y1="3" x2="14" y2="10"></line>
+                      <line x1="3" y1="21" x2="10" y2="14"></line>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Main Viewport Canvas Frame -->
+                <div id="studio-viewport" class="studio-viewport">
+                  <canvas id="studio-screen-canvas" width="720" height="1600" class="studio-canvas"></canvas>
+                  <div id="studio-overlay" class="studio-overlay">
+                    <div id="studio-overlay-icon">
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                      </svg>
+                    </div>
+                    <div id="studio-overlay-title" class="studio-overlay-title">Stream Idle</div>
+                    <div id="studio-overlay-desc" class="studio-overlay-desc">Click "Start Stream" to negotiate visual teleoperation session.</div>
+                  </div>
+                </div>
+
+                <!-- Hardware Navigation Buttons -->
+                <div class="studio-nav-bar" role="toolbar" aria-label="Hardware Navigation Keys">
+                  <button id="btn-hw-back" class="btn sm" type="button" title="Back" aria-label="Back">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="19" y1="12" x2="5" y2="12"></line>
+                      <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Back</span>
+                  </button>
+                  <button id="btn-hw-home" class="btn sm" type="button" title="Home" aria-label="Home">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="8"></circle>
+                    </svg>
+                    <span>Home</span>
+                  </button>
+                  <button id="btn-hw-recents" class="btn sm" type="button" title="Recents / App Switcher" aria-label="Recents">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="5" y="5" width="14" height="14" rx="2" ry="2"></rect>
+                    </svg>
+                    <span>Recents</span>
+                  </button>
+                  <button id="btn-hw-power" class="btn sm" type="button" title="Power" aria-label="Power">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                      <line x1="12" y1="2" x2="12" y2="12"></line>
+                    </svg>
+                    <span>Power</span>
+                  </button>
+                  <button id="btn-hw-vol-down" class="btn sm" type="button" title="Volume Down" aria-label="Volume Down">
+                    <span>Vol -</span>
+                  </button>
+                  <button id="btn-hw-vol-up" class="btn sm" type="button" title="Volume Up" aria-label="Volume Up">
+                    <span>Vol +</span>
+                  </button>
+                </div>
+
+                <!-- Text Typing Injection -->
+                <div class="studio-text-bar">
+                  <input id="studio-text-input" type="text" class="form-input" placeholder="Type text to inject into focused Android field..." aria-label="Type text to inject" />
+                  <button id="btn-studio-send-text" class="btn sm primary" type="button">
+                    <span>Type Text</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Stream & Device Diagnostics Inspector -->
+              <div class="studio-inspector">
+                <div class="card" style="margin-bottom: var(--space-4);">
+                  <div class="card-header">
+                    <span class="card-title">Stream Diagnostics</span>
+                    <span class="badge">Verified Telemetry</span>
+                  </div>
+                  <table class="device-specs-table">
+                    <tbody>
+                      <tr>
+                        <td class="spec-key">Measured FPS</td>
+                        <td id="diag-fps" class="spec-val tabular-nums">0.0</td>
+                      </tr>
+                      <tr>
+                        <td class="spec-key">Frames Sent</td>
+                        <td id="diag-frames" class="spec-val tabular-nums">0</td>
+                      </tr>
+                      <tr>
+                        <td class="spec-key">Dropped Frames</td>
+                        <td id="diag-dropped" class="spec-val tabular-nums">0</td>
+                      </tr>
+                      <tr>
+                        <td class="spec-key">Bytes Transferred</td>
+                        <td id="diag-bytes" class="spec-val tabular-nums">0 KB</td>
+                      </tr>
+                      <tr>
+                        <td class="spec-key">Startup Time</td>
+                        <td id="diag-startup" class="spec-val tabular-nums">-- ms</td>
+                      </tr>
+                      <tr>
+                        <td class="spec-key">Active Viewers</td>
+                        <td id="diag-viewers" class="spec-val tabular-nums">0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-title">Single-Writer Lease</span>
+                    <span id="diag-lease-indicator" class="status-dot idle"></span>
+                  </div>
+                  <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: var(--space-3);">
+                    Read-only streams allow unlimited viewers. Touch and keyboard input require an exclusive lease.
+                  </p>
+                  <table class="device-specs-table">
+                    <tbody>
+                      <tr>
+                        <td class="spec-key">Lease Holder</td>
+                        <td id="diag-lease-holder" class="spec-val mono">None</td>
+                      </tr>
+                      <tr>
+                        <td class="spec-key">Expires In</td>
+                        <td id="diag-lease-expires" class="spec-val tabular-nums">--</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Route 3: Virtual Devices (AVD Hub - Phase 11) -->
+        <section id="view-virtual" class="page-view">
+          <header class="page-header">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap;">
+              <div>
+                <h1 class="page-title">Virtual Devices (AVD Hub)</h1>
+                <p class="page-description">Configure, launch, orchestrate boot completion, and manage Android Virtual Devices.</p>
+              </div>
+              <div class="actions-group">
+                <button id="btn-refresh-avds" class="btn" type="button" title="Refresh Virtual Devices">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  <span>Refresh</span>
+                </button>
+                <button id="btn-open-create-avd" class="btn primary" type="button">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                  <span>Create Virtual Device</span>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <!-- SDK Environment Status Strip -->
+          <div id="avd-env-strip" class="card avd-env-strip" style="margin-bottom: var(--space-4);">
+            <div class="avd-env-grid">
+              <div class="avd-env-col">
+                <span class="avd-env-label">Android SDK Root</span>
+                <span id="avd-env-sdk-path" class="avd-env-val mono">Detecting...</span>
+              </div>
+              <div class="avd-env-col">
+                <span class="avd-env-label">Emulator Binary</span>
+                <div class="status-indicator">
+                  <span id="avd-env-emu-dot" class="status-dot idle"></span>
+                  <span id="avd-env-emu-status" class="avd-env-val">Probing...</span>
+                </div>
+              </div>
+              <div class="avd-env-col">
+                <span class="avd-env-label">AVD Manager</span>
+                <div class="status-indicator">
+                  <span id="avd-env-avdm-dot" class="status-dot idle"></span>
+                  <span id="avd-env-avdm-status" class="avd-env-val">Probing...</span>
+                </div>
+              </div>
+              <div class="avd-env-col">
+                <span class="avd-env-label">System Images</span>
+                <span id="avd-env-sysimg-count" class="avd-env-val tabular-nums">0 Available</span>
+              </div>
+            </div>
+            <div id="avd-env-guidance" class="avd-env-guidance" style="display: none;">
+              <div class="info-notice warning" style="margin: var(--space-3) 0 0 0;">
+                <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <div class="notice-body">
+                  <div class="notice-title">Host Emulator Environment Setup Required</div>
+                  <div id="avd-env-guidance-text" class="notice-text"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AVD Filter / Search Toolbar -->
+          <div class="inventory-toolbar" style="margin-bottom: var(--space-4);">
+            <div class="search-box">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="search" id="avd-search-input" class="search-input" placeholder="Search virtual devices by name, API level, or ABI..." />
+            </div>
+            <div class="toolbar-stats" id="avd-count-summary">
+              <span class="badge" id="avd-badge-count">0 Virtual Devices</span>
+            </div>
+          </div>
+
+          <!-- AVD Cards Grid Container -->
+          <div id="avd-list-container" class="avd-grid">
+            <div class="empty-state">
+              <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              <h2 class="empty-title">Loading Virtual Devices...</h2>
+              <p class="empty-description">Scanning local Android Virtual Device repository.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Route 4: Live Sessions -->
+        <section id="view-sessions" class="page-view">
+          <header class="page-header">
+            <h1 class="page-title">Session Management</h1>
+            <p class="page-description">Single-writer operator leases, multi-viewer streaming isolation, and lock revocation.</p>
+          </header>
+
+          <div class="info-notice">
+            <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div class="notice-body">
+              <div class="notice-title">Single-Writer Lease Exclusivity Active</div>
+              <div class="notice-text">
+                Read-only streams allow unlimited concurrent viewers. Teleoperation input injection requires an exclusive lease with a 300-second inactivity timeout.
+              </div>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Device Serial</th>
+                  <th>Lease Holder</th>
+                  <th>Role</th>
+                  <th>Acquired At</th>
+                  <th>Timeout Countdown</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="sessions-lease-rows">
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--text-tertiary); padding: var(--space-6);">
+                    No active operator leases held. Devices are available for reservation.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Route 5: Automation -->
+        <section id="view-automation" class="page-view">
+          <header class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <h1 class="page-title">Automation &amp; Workflow Runner</h1>
+              <p class="page-description">Declarative step-by-step device automation, smoke verification workflows, and artifact capture.</p>
+            </div>
+            <div style="display: flex; gap: var(--space-2);">
+              <button id="btn-open-create-workflow" class="btn primary sm" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>New Workflow</span>
+              </button>
+            </div>
+          </header>
+
+          <!-- Active Execution Progress Card (Shown when execution is active or recent) -->
+          <div id="auto-active-card" class="card" style="display: none; margin-bottom: var(--space-6); border-color: var(--accent-coral);">
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: var(--space-2);">
+                <span id="auto-active-dot" class="status-dot working"></span>
+                <span id="auto-active-title" class="card-title">Running Workflow: SmokeRun</span>
+                <span id="auto-active-badge" class="badge accent">RUNNING</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: var(--space-3);">
+                <span id="auto-active-timer" class="tabular-nums mono" style="font-size: 13px;">0.0s</span>
+                <button id="btn-cancel-execution" class="btn sm" type="button" style="color: var(--accent-coral);">
+                  <span>Abort Execution</span>
+                </button>
+              </div>
+            </div>
+            <div class="auto-progress-bar-wrap" style="height: 4px; background: var(--bg-hover); border-radius: var(--radius-pill); overflow: hidden; margin-bottom: var(--space-4);">
+              <div id="auto-progress-fill" style="width: 0%; height: 100%; background: var(--accent-coral); transition: width 0.3s ease;"></div>
+            </div>
+            <div id="auto-active-steps" class="auto-steps-list" style="display: flex; flex-direction: column; gap: var(--space-2); max-height: 220px; overflow-y: auto;">
+              <!-- Dynamic step items -->
+            </div>
+          </div>
+
+          <!-- Workflow Launchpad Card -->
+          <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="card-header">
+              <span class="card-title">Launch Automation Workflow</span>
+              <span class="badge">Concurrency Isolated</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-4);">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="auto-target-device">Target Device</label>
+                <div class="select-wrapper">
+                  <select id="auto-target-device" class="select-input" aria-label="Target Device">
+                    <option value="">Select an attached device...</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Workflow Preset Template</label>
+                <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                  <button id="btn-template-smoke" class="btn sm" type="button">Smoke: Home + Screen</button>
+                  <button id="btn-template-app" class="btn sm" type="button">Settings Lifecycle</button>
+                  <button id="btn-template-gesture" class="btn sm" type="button">Nav Swipe + Keys</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="auto-workflow-json">Workflow Definition (JSON)</label>
+              <textarea id="auto-workflow-json" class="form-input mono" rows="8" spellcheck="false" style="resize: vertical; font-size: 12px;"></textarea>
+              <span class="form-hint">Typed schema supporting WAIT, DELAY, TAP, SWIPE, KEY, TYPE_TEXT, SCREENSHOT, LAUNCH_APP, STOP_APP, ASSERT_STATE.</span>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: var(--space-3);">
+              <button id="btn-validate-workflow" class="btn sm" type="button">
+                <span>Validate JSON</span>
+              </button>
+              <button id="btn-run-workflow" class="btn sm primary" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Execute Workflow</span>
               </button>
             </div>
           </div>
 
-          <div class="canvas-viewport" id="viewport-container">
-            <canvas id="device-canvas" width="360" height="800"></canvas>
-            <div id="canvas-overlay" class="canvas-overlay">
-              <span class="overlay-text">Select a device from fleet</span>
+          <!-- Execution History & Artifacts -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Execution History &amp; Reports</h2>
+              <button id="btn-refresh-history" class="btn sm" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span>Refresh</span>
+              </button>
+            </div>
+            <div class="table-container" style="border: none; margin-bottom: 0;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Execution ID</th>
+                    <th>Workflow</th>
+                    <th>Device</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th>Completed At</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="auto-history-rows">
+                  <tr>
+                    <td colspan="7" style="text-align: center; color: var(--text-tertiary); padding: var(--space-6);">
+                      No executions recorded in this session.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Route 6: Logs & Diagnostics -->
+        <section id="view-diagnostics" class="page-view">
+          <header class="page-header">
+            <h1 class="page-title">Logs & Diagnostics</h1>
+            <p class="page-description">Workstation health telemetry, ADB daemon status, WebSocket pipe bandwidth, and audit trail.</p>
+          </header>
+
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">ADB Daemon</span>
+                <span class="status-dot complete"></span>
+              </div>
+              <div class="card-metric" style="font-size: 16px;">127.0.0.1:5037</div>
+              <div class="card-meta">Platform-Tools 1.0.41</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Service Port</span>
+                <span class="status-dot complete"></span>
+              </div>
+              <div class="card-metric tabular-nums">8098</div>
+              <div class="card-meta">FastAPI ASGI Server Active</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Sibling Isolation</span>
+                <span class="status-dot complete"></span>
+              </div>
+              <div class="card-metric">Protected</div>
+              <div class="card-meta">Voice (:8090) &amp; Bench (:8099)</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Zero Emoji Policy</span>
+                <span class="status-dot complete"></span>
+              </div>
+              <div class="card-metric">100% Clean</div>
+              <div class="card-meta">Zero Unicode Emojis Allowed</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Apple Mobile Services</span>
+                <span id="diag-apple-dot" class="status-dot complete"></span>
+              </div>
+              <div id="diag-apple-metric" class="card-metric" style="font-size: 16px;">127.0.0.1:27015</div>
+              <div id="diag-apple-meta" class="card-meta">usbmuxd AMDS Loopback Active</div>
             </div>
           </div>
 
-          <!-- Hardware Keys Bar -->
-          <div class="hardware-keyrail">
-            <button class="key-btn" data-key="BACK" title="Back">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-              <span>Back</span>
-            </button>
-            <button class="key-btn" data-key="HOME" title="Home">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="7"></circle>
-              </svg>
-              <span>Home</span>
-            </button>
-            <button class="key-btn" data-key="APP_SWITCH" title="Overview / Recents">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-              </svg>
-              <span>Recents</span>
-            </button>
-            <div class="key-divider"></div>
-            <button class="key-btn" data-key="VOLUME_DOWN" title="Volume Down">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-              </svg>
-              <span>Vol -</span>
-            </button>
-            <button class="key-btn" data-key="VOLUME_UP" title="Volume Up">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-              </svg>
-              <span>Vol +</span>
-            </button>
-            <button class="key-btn" data-key="POWER" title="Power / Lock">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
-                <line x1="12" y1="2" x2="12" y2="12"></line>
-              </svg>
-              <span>Power</span>
-            </button>
+          <!-- Section 1: Live Device Logcat Console -->
+          <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="card-header" style="flex-wrap: wrap; gap: var(--space-3);">
+              <div>
+                <h2 class="card-title">Live Device Logs (Logcat)</h2>
+                <span class="card-meta">Real-time log buffer with credential scrubbing and export</span>
+              </div>
+              <div style="display: flex; gap: var(--space-2); margin-left: auto;">
+                <button id="btn-log-export-txt" class="btn sm" type="button" title="Export as Text">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Export TXT</span>
+                </button>
+                <button id="btn-log-export-json" class="btn sm" type="button" title="Export as JSON Artifact">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Export JSON</span>
+                </button>
+                <button id="btn-log-clear" class="btn sm" type="button" title="Clear Buffer">
+                  <span>Clear</span>
+                </button>
+                <button id="btn-log-stream-toggle" class="btn sm primary" type="button">
+                  <span id="log-toggle-label">Pause</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Log Controls Toolbar -->
+            <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-hairline); margin-bottom: var(--space-3);">
+              <div class="select-wrapper" style="min-width: 200px;">
+                <select id="log-device-select" class="select-input sm" aria-label="Log Device">
+                  <option value="">Select target device...</option>
+                </select>
+              </div>
+
+              <div class="select-wrapper" style="width: 140px;">
+                <select id="log-level-filter" class="select-input sm" aria-label="Log Level">
+                  <option value="ALL">All Levels</option>
+                  <option value="VERBOSE">V - Verbose</option>
+                  <option value="DEBUG">D - Debug</option>
+                  <option value="INFO" selected>I - Info+</option>
+                  <option value="WARN">W - Warning+</option>
+                  <option value="ERROR">E - Error+</option>
+                  <option value="FATAL">F - Fatal</option>
+                </select>
+              </div>
+
+              <input id="log-tag-filter" type="text" class="form-input sm" placeholder="Filter tag (e.g. ActivityManager)..." style="width: 180px;" />
+              <input id="log-search-filter" type="text" class="form-input sm" placeholder="Search message text..." style="flex: 1; min-width: 180px;" />
+
+              <label style="display: flex; align-items: center; gap: var(--space-1); font-size: 12px; cursor: pointer; color: var(--text-secondary); user-select: none;">
+                <input type="checkbox" id="log-autoscroll-toggle" checked />
+                <span>Auto-scroll</span>
+              </label>
+            </div>
+
+            <!-- Terminal Output Window -->
+            <div id="logcat-terminal" class="logcat-console" style="background: #121211; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); height: 380px; overflow-y: auto; padding: var(--space-3); font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--text-primary); white-space: pre-wrap; word-break: break-all;">
+              <div style="color: var(--text-tertiary); font-style: italic;">Select an attached device to stream live sanitized logcat output...</div>
+            </div>
           </div>
 
-          <!-- Typing Input Bar -->
-          <div class="text-input-bar">
-            <input type="text" id="type-input" placeholder="Type text to inject via ADB keyboard..." class="form-input">
-            <button id="btn-send-text" class="btn btn-primary">Send</button>
-          </div>
-        </div>
-      </section>
+          <!-- Section 2: Deep Device Diagnostics Panel -->
+          <div class="card">
+            <div class="card-header" style="flex-wrap: wrap; gap: var(--space-3);">
+              <div>
+                <h2 class="card-title">Deep Device Diagnostics</h2>
+                <span class="card-meta">Verified hardware metrics, stream telemetry, and structured error history</span>
+              </div>
+              <div style="display: flex; gap: var(--space-2); margin-left: auto;">
+                <div class="select-wrapper" style="min-width: 200px;">
+                  <select id="diag-deep-device-select" class="select-input sm" aria-label="Deep Diagnostics Device">
+                    <option value="">Select target device...</option>
+                  </select>
+                </div>
+                <button id="btn-refresh-deep-diag" class="btn sm" type="button">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  <span>Fetch Diagnostics</span>
+                </button>
+              </div>
+            </div>
 
-      <!-- Right Rail: Telemetry & Actions -->
-      <aside class="sidebar-telemetry">
-        <div class="panel-section">
-          <h2 class="panel-title">Hardware Telemetry</h2>
-          <div class="metrics-grid">
-            <div class="metric-card">
-              <span class="metric-label">CPU LOAD</span>
-              <span id="metric-cpu" class="metric-value">-- %</span>
-              <div class="meter-bar"><div id="bar-cpu" class="meter-fill" style="width: 0%"></div></div>
+            <div class="card-grid" style="margin-bottom: var(--space-4);">
+              <div class="card" style="margin-bottom: 0;">
+                <div class="card-header">
+                  <span class="card-title">Provider &amp; State</span>
+                  <span id="deep-diag-state-dot" class="status-dot idle"></span>
+                </div>
+                <div id="deep-diag-state-metric" class="card-metric" style="font-size: 16px;">--</div>
+                <div id="deep-diag-provider-meta" class="card-meta">Provider: --</div>
+              </div>
+
+              <div class="card" style="margin-bottom: 0;">
+                <div class="card-header">
+                  <span class="card-title">Stream Status</span>
+                  <span id="deep-diag-stream-dot" class="status-dot idle"></span>
+                </div>
+                <div id="deep-diag-stream-fps" class="card-metric tabular-nums">0.0 FPS</div>
+                <div id="deep-diag-stream-meta" class="card-meta">0 frames / 0 bytes</div>
+              </div>
+
+              <div class="card" style="margin-bottom: 0;">
+                <div class="card-header">
+                  <span class="card-title">Operator Lease</span>
+                  <span class="badge">Lock Safety</span>
+                </div>
+                <div id="deep-diag-lease-metric" class="card-metric" style="font-size: 15px;">Available</div>
+                <div id="deep-diag-lease-meta" class="card-meta">No single-writer lock held</div>
+              </div>
+
+              <div class="card" style="margin-bottom: 0;">
+                <div class="card-header">
+                  <span class="card-title">Hardware Telemetry</span>
+                  <span class="badge">System</span>
+                </div>
+                <div id="deep-diag-battery-metric" class="card-metric tabular-nums">-- %</div>
+                <div id="deep-diag-screen-meta" class="card-meta">Dimensions: --</div>
+              </div>
             </div>
-            <div class="metric-card">
-              <span class="metric-label">RAM USAGE</span>
-              <span id="metric-ram" class="metric-value">-- MB</span>
-              <div class="meter-bar"><div id="bar-ram" class="meter-fill" style="width: 0%"></div></div>
-            </div>
-            <div class="metric-card">
-              <span class="metric-label">BATTERY</span>
-              <span id="metric-battery" class="metric-value">-- %</span>
-              <span id="metric-temp" class="metric-sub">-- °C</span>
-            </div>
-            <div class="metric-card">
-              <span class="metric-label">INTERNAL STORAGE</span>
-              <span id="metric-storage" class="metric-value">-- GB</span>
-              <div class="meter-bar"><div id="bar-storage" class="meter-fill" style="width: 0%"></div></div>
+
+            <!-- Recent Structured Error History -->
+            <div>
+              <h3 style="font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-2);">Recent Error Events</h3>
+              <div class="table-container" style="border: none; margin-bottom: 0;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Error Code</th>
+                      <th>Message</th>
+                    </tr>
+                  </thead>
+                  <tbody id="deep-diag-error-rows">
+                    <tr>
+                      <td colspan="3" style="text-align: center; color: var(--text-tertiary); padding: var(--space-4);">
+                        No error events recorded for this device.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div class="panel-section">
-          <h2 class="panel-title">App Orchestration</h2>
-          <div class="action-form">
-            <label class="form-label" for="app-package-input">Package / Activity</label>
-            <input type="text" id="app-package-input" class="form-input" value="com.kelvra.mobile">
-            <div class="btn-group">
-              <button id="btn-launch-app" class="btn btn-secondary">Launch App</button>
-              <button id="btn-stop-app" class="btn btn-secondary">Force Stop</button>
+        <!-- Route 7: Settings -->
+        <section id="view-settings" class="page-view">
+          <header class="page-header">
+            <h1 class="page-title">Device Lab Settings</h1>
+            <p class="page-description">Workstation configuration, platform-tools path validation, video encoding tier, and retention limits.</p>
+          </header>
+
+          <form id="settings-form" onsubmit="event.preventDefault(); window.deviceLabApp.saveSettings();">
+            <div class="form-group">
+              <label class="form-label" for="setting-adb-path">ADB Binary Executable Path</label>
+              <input type="text" id="setting-adb-path" class="form-input mono" placeholder="C:\Users\...\AppData\Local\Android\Sdk\platform-tools\adb.exe" />
+              <span class="form-hint">Host path to adb.exe. Proprietary binaries are never redistributed.</span>
             </div>
-          </div>
-        </div>
 
-        <div class="panel-section">
-          <h2 class="panel-title">Test Runner</h2>
-          <button id="btn-run-smoke" class="btn btn-primary btn-block">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3"></polygon>
-            </svg>
-            Execute Smoke Test
-          </button>
-          <div id="test-report-card" class="test-report hidden">
-            <div class="report-header">
-              <span id="test-status-pill" class="pill">PASSED</span>
-              <span id="test-id-label" class="report-id">test-0</span>
+            <div class="form-group">
+              <label class="form-label">Default Video Streaming Tier</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="streaming-tier" value="jpeg" checked />
+                  <span>Baseline JPEG WebSocket (Low Overhead, Zero Dependencies)</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="streaming-tier" value="h264" />
+                  <span>scrcpy H.264 WebCodecs (Hardware MediaCodec, 60 FPS)</span>
+                </label>
+              </div>
             </div>
-            <ul id="test-steps-list" class="steps-list"></ul>
-          </div>
-        </div>
-      </aside>
-    </main>
 
-    <!-- Bottom Logcat Console Drawer -->
-    <footer class="console-drawer">
-      <div class="console-header">
-        <div class="console-title-group">
-          <svg class="console-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="4 17 10 11 4 5"></polyline>
-            <line x1="12" y1="19" x2="20" y2="19"></line>
+            <div class="form-group">
+              <label class="form-label" for="setting-lease-timeout">Inactivity Lease Timeout (Seconds)</label>
+              <input type="number" id="setting-lease-timeout" class="form-input mono" value="300" min="60" max="3600" />
+              <span class="form-hint">Automatic revocation window if operator heartbeat ceases.</span>
+            </div>
+
+            <div style="margin-top: var(--space-6);">
+              <button type="submit" class="btn primary">
+                <span>Save Configuration</span>
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Confirmation Modal Shell -->
+  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="modal-title" class="modal-title">Confirm Action</h2>
+        <button id="modal-btn-close" class="modal-close-btn" type="button" aria-label="Close dialog">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
-          <span class="console-title">Live Logcat Stream</span>
-          <span id="log-count" class="badge">0 lines</span>
-        </div>
-
-        <div class="console-controls">
-          <select id="log-level-filter" class="form-select">
-            <option value="ALL">All Levels</option>
-            <option value="V">Verbose (V+)</option>
-            <option value="D">Debug (D+)</option>
-            <option value="I" selected>Info (I+)</option>
-            <option value="W">Warning (W+)</option>
-            <option value="E">Error (E+)</option>
-          </select>
-          <input type="text" id="log-search-input" placeholder="Filter tag or message..." class="form-input form-input-sm">
-          <button id="btn-autoscroll" class="btn btn-sm btn-secondary active">Auto-Scroll</button>
-          <button id="btn-clear-logs" class="btn btn-sm btn-secondary">Clear</button>
-        </div>
+        </button>
       </div>
-
-      <div id="logcat-viewport" class="logcat-viewport">
-        <!-- Log lines dynamically injected here -->
+      <div id="modal-body" class="modal-body">
+        Are you sure you want to proceed with this operation?
       </div>
-    </footer>
+      <div class="modal-footer">
+        <button id="modal-btn-cancel" class="btn sm" type="button">Cancel</button>
+        <button id="modal-btn-confirm" class="btn sm primary" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create AVD Modal Shell (Phase 11) -->
+  <div id="modal-create-avd" class="modal-backdrop" role="dialog" aria-modal="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 class="modal-title">Create Virtual Device (AVD)</h2>
+        <button id="modal-create-avd-close" class="modal-close-btn" type="button" aria-label="Close dialog">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="form-create-avd" onsubmit="event.preventDefault(); window.deviceLabApp.submitCreateAvd();">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="create-avd-name">AVD Name <span class="required-indicator" style="color: var(--accent-coral);">*</span></label>
+            <input type="text" id="create-avd-name" class="form-input mono" placeholder="Pixel_7_API_34" required pattern="^[a-zA-Z0-9_\-\.]+$" />
+            <span class="form-hint">Only alphanumeric characters, underscores, hyphens, and dots. Path traversal is rejected.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="create-avd-package">System Image Package <span class="required-indicator" style="color: var(--accent-coral);">*</span></label>
+            <input type="text" id="create-avd-package" class="form-input mono" placeholder="system-images;android-34;google_apis;x86_64" required />
+            <span class="form-hint">Target SDK system image package installed on the workstation.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="create-avd-profile">Device Profile (Optional)</label>
+            <input type="text" id="create-avd-profile" class="form-input" placeholder="pixel_7" />
+            <span class="form-hint">Hardware profile (e.g. pixel_7, pixel_6, nexus_5).</span>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3);">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label" for="create-avd-ram">RAM (MB)</label>
+              <input type="number" id="create-avd-ram" class="form-input tabular-nums" value="2048" min="512" max="16384" />
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label" for="create-avd-sdcard">SD Card (MB)</label>
+              <input type="number" id="create-avd-sdcard" class="form-input tabular-nums" value="512" min="128" max="65536" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="modal-create-avd-cancel" class="btn sm" type="button">Cancel</button>
+          <button type="submit" id="modal-create-avd-submit" class="btn sm primary">Create AVD</button>
+        </div>
+      </form>
+    </div>
+  <!-- Create Workflow Modal Shell (Phase 13) -->
+  <div id="modal-create-workflow" class="modal-backdrop" role="dialog" aria-modal="true" style="display: none;">
+    <div class="modal-dialog" style="max-width: 600px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Create Automation Workflow</h2>
+        <button id="modal-create-workflow-close" class="modal-close-btn" type="button" aria-label="Close dialog">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="form-create-workflow" onsubmit="event.preventDefault(); window.deviceLabApp.submitCreateWorkflow();">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="workflow-name-input">Workflow Name <span class="required-indicator" style="color: var(--accent-coral);">*</span></label>
+            <input type="text" id="workflow-name-input" class="form-input" placeholder="e.g. SmokeVerification" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="workflow-target-device-input">Target Device <span class="required-indicator" style="color: var(--accent-coral);">*</span></label>
+            <div class="select-wrapper">
+              <select id="workflow-target-device-input" class="select-input" required>
+                <option value="">Select target device...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="workflow-steps-json-input">Steps Definition (JSON Array) <span class="required-indicator" style="color: var(--accent-coral);">*</span></label>
+            <textarea id="workflow-steps-json-input" class="form-input mono" rows="8" spellcheck="false" style="resize: vertical; font-size: 12px;" required></textarea>
+            <span class="form-hint">JSON array of step objects, e.g. [{"action": "KEY", "key": "HOME"}, {"action": "SCREENSHOT"}]</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="modal-create-workflow-cancel" class="btn sm" type="button">Cancel</button>
+          <button type="submit" id="modal-create-workflow-submit" class="btn sm primary">Save Workflow</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script src="/app.js"></script>

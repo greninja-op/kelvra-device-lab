@@ -1,0 +1,10 @@
+{"timestamp": "12:00:01.000", "pid": 1234, "tid": 1234, "level": "D", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #1", "raw": "12:00:01.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #1"}
+{"timestamp": "12:00:02.000", "pid": 1234, "tid": 1234, "level": "I", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #2", "raw": "12:00:02.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #2"}
+{"timestamp": "12:00:03.000", "pid": 1234, "tid": 1234, "level": "D", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #3", "raw": "12:00:03.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #3"}
+{"timestamp": "12:00:04.000", "pid": 1234, "tid": 1234, "level": "I", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #4", "raw": "12:00:04.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #4"}
+{"timestamp": "12:00:05.000", "pid": 1234, "tid": 1234, "level": "D", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #5", "raw": "12:00:05.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #5"}
+{"timestamp": "12:00:06.000", "pid": 1234, "tid": 1234, "level": "I", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #6", "raw": "12:00:06.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #6"}
+{"timestamp": "12:00:07.000", "pid": 1234, "tid": 1234, "level": "D", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #7", "raw": "12:00:07.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #7"}
+{"timestamp": "12:00:08.000", "pid": 1234, "tid": 1234, "level": "I", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #8", "raw": "12:00:08.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #8"}
+{"timestamp": "12:00:09.000", "pid": 1234, "tid": 1234, "level": "D", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #9", "raw": "12:00:09.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #9"}
+{"timestamp": "12:00:010.000", "pid": 1234, "tid": 1234, "level": "I", "tag": "KelvraDeviceLab", "message": "Verified telemetry line #10", "raw": "12:00:010.000 1234 1234 I KelvraDeviceLab: Verified telemetry line #10"}

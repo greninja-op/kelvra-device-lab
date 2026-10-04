@@ -1,0 +1,32 @@
+{
+  "execution_id": "exec-977314f1fc",
+  "workflow_id": "wf-1901fd18",
+  "workflow_name": "Error Containment Test",
+  "target_device": "android:p14-perf-device",
+  "status": "FAILED",
+  "started_at": "2026-10-04T00:41:06.285223+00:00",
+  "completed_at": "2026-10-04T00:41:06.343916+00:00",
+  "duration_ms": 58.54,
+  "step_results": [
+    {
+      "step_index": 0,
+      "step_name": "Step 1 - Wait",
+      "action": "WAIT",
+      "status": "PASSED",
+      "duration_ms": 57.86,
+      "error_message": null,
+      "artifact_id": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "Step 2 - Failing Tap",
+      "action": "TAP",
+      "status": "FAILED",
+      "duration_ms": 0.56,
+      "error_message": "Tap dispatch failed at (500, 500)",
+      "artifact_id": null
+    }
+  ],
+  "error_details": "Failed at step 2 (Step 2 - Failing Tap): Tap dispatch failed at (500, 500)",
+  "artifact_id": null
+}

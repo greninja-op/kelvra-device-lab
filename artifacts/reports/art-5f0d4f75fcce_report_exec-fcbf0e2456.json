@@ -1,0 +1,23 @@
+{
+  "execution_id": "exec-fcbf0e2456",
+  "workflow_id": "wf-caf6f91f",
+  "workflow_name": "Error Containment Test",
+  "target_device": "android:p14-perf-device",
+  "status": "CANCELLED",
+  "started_at": "2026-10-04T00:31:05.040206+00:00",
+  "completed_at": "2026-10-04T00:31:05.694178+00:00",
+  "duration_ms": 652.86,
+  "step_results": [
+    {
+      "step_index": 0,
+      "step_name": "Step 1 - Wait",
+      "action": "WAIT",
+      "status": "CANCELLED",
+      "duration_ms": 652.65,
+      "error_message": null,
+      "artifact_id": null
+    }
+  ],
+  "error_details": "Workflow execution cancelled by operator.",
+  "artifact_id": null
+}

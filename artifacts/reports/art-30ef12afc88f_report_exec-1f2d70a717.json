@@ -1,0 +1,23 @@
+{
+  "execution_id": "exec-1f2d70a717",
+  "workflow_id": "wf-fa3ba6fc",
+  "workflow_name": "HealthCheckFlow",
+  "target_device": "android:mock-pixel-7",
+  "status": "CANCELLED",
+  "started_at": "2026-10-04T00:32:44.428719+00:00",
+  "completed_at": "2026-10-04T00:32:44.430703+00:00",
+  "duration_ms": 1.27,
+  "step_results": [
+    {
+      "step_index": 0,
+      "step_name": "Wait step",
+      "action": "WAIT",
+      "status": "CANCELLED",
+      "duration_ms": 1.1,
+      "error_message": null,
+      "artifact_id": null
+    }
+  ],
+  "error_details": "Workflow execution cancelled by operator.",
+  "artifact_id": null
+}

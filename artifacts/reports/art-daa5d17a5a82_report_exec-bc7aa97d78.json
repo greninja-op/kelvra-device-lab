@@ -1,0 +1,41 @@
+{
+  "execution_id": "exec-bc7aa97d78",
+  "workflow_id": "wf-e6a98ff1",
+  "workflow_name": "Acceptance Smoke Suite",
+  "target_device": "android:p15-system-device",
+  "status": "COMPLETED",
+  "started_at": "2026-10-04T00:39:04.303292+00:00",
+  "completed_at": "2026-10-04T00:39:04.374552+00:00",
+  "duration_ms": 71.09,
+  "step_results": [
+    {
+      "step_index": 0,
+      "step_name": "Wait for System Ready",
+      "action": "WAIT",
+      "status": "PASSED",
+      "duration_ms": 61.01,
+      "error_message": null,
+      "artifact_id": null
+    },
+    {
+      "step_index": 1,
+      "step_name": "Tap Settings Launcher",
+      "action": "TAP",
+      "status": "PASSED",
+      "duration_ms": 0.16,
+      "error_message": null,
+      "artifact_id": null
+    },
+    {
+      "step_index": 2,
+      "step_name": "Capture Final State",
+      "action": "SCREENSHOT",
+      "status": "PASSED",
+      "duration_ms": 9.67,
+      "error_message": null,
+      "artifact_id": "art-7fad4e74fcf9"
+    }
+  ],
+  "error_details": null,
+  "artifact_id": null
+}
