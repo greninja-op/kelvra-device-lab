@@ -1583,6 +1583,128 @@ html, body {
 .log-f .log-level, .log-f .log-msg { color: #DC2626; font-weight: 700; }
 
 /* ==========================================================================
+   Multi-Device Matrix Grid Streaming Viewport (Phase 27)
+   ========================================================================== */
+
+.studio-matrix-viewport {
+  width: 100%;
+  max-width: 880px;
+  min-height: 540px;
+  background-color: #1A1918;
+  border: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3);
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .studio-matrix-viewport {
+    grid-template-columns: 1fr;
+  }
+}
+
+.matrix-cell {
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.matrix-cell:hover {
+  border-color: var(--border-subtle);
+}
+
+.matrix-cell.focused {
+  border-color: var(--accent-coral);
+  box-shadow: 0 0 0 1px var(--accent-coral);
+}
+
+.matrix-cell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 12px;
+}
+
+.matrix-cell-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.matrix-cell-title {
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.matrix-cell-serial {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+}
+
+.matrix-cell-stage {
+  flex: 1;
+  min-height: 220px;
+  max-height: 280px;
+  background-color: #121210;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.matrix-cell-canvas {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.matrix-cell-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--text-tertiary);
+  font-size: 12px;
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.matrix-cell-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--bg-panel);
+  border-top: 1px solid var(--border-hairline);
+  font-size: 11px;
+}
+
+.matrix-cell-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ==========================================================================
    Responsive Adaptations & Accessibility
    ========================================================================== */
 

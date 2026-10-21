@@ -260,6 +260,8 @@ class InputController:
 
     def take_screenshot(self, serial: str, max_width: int = 1080, quality: int = 75) -> Optional[bytes]:
         """Capture screenshot from device and return compressed JPEG bytes."""
+        quality = max(1, min(100, int(quality)))
+        max_width = max(16, min(3840, int(max_width)))
         if serial in self.device_manager._mock_devices:
             # Synthetic test pattern for mock devices
             img = Image.new("RGB", (720, 1600), color=(38, 38, 36))

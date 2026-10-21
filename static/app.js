@@ -88,6 +88,13 @@ class DeviceLabApp {
     this.btnStudioStreamToggle = document.getElementById('btn-studio-stream-toggle');
     this.studioQualitySelect = document.getElementById('studio-quality-select');
     this.studioFpsSelect = document.getElementById('studio-fps-select');
+    this.studioCodecSelect = document.getElementById('studio-codec-select');
+    this.studioLayoutSelect = document.getElementById('studio-layout-select');
+    this.studioMatrixViewport = document.getElementById('studio-matrix-viewport');
+    this.matrixRefreshTimer = null;
+    this.matrixModeActive = false;
+    this.decoderWorker = null;
+    this.h264Active = false;
     this.studioStreamStatusDot = document.getElementById('studio-stream-status-dot');
     this.studioStreamStatusText = document.getElementById('studio-stream-status-text');
     this.btnStudioFullscreen = document.getElementById('btn-studio-fullscreen');
@@ -337,6 +344,20 @@ class DeviceLabApp {
     }
     if (this.btnStudioFullscreen) {
       this.btnStudioFullscreen.addEventListener('click', () => this.toggleFullscreen());
+    }
+    if (this.studioLayoutSelect) {
+      this.studioLayoutSelect.addEventListener('change', () => {
+        this.switchStudioLayout(this.studioLayoutSelect.value);
+      });
+    }
+    if (this.studioMatrixViewport) {
+      this.studioMatrixViewport.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-action="focus-matrix"]');
+        if (btn) {
+          const serial = btn.getAttribute('data-serial');
+          if (serial) this.focusMatrixDevice(serial);
+        }
+      });
     }
 
     // Hardware Navigation Keys
@@ -1121,6 +1142,14 @@ class DeviceLabApp {
       clearInterval(this.leaseHeartbeatTimer);
       this.leaseHeartbeatTimer = null;
     }
+    if (this.matrixRefreshTimer) {
+      clearInterval(this.matrixRefreshTimer);
+      this.matrixRefreshTimer = null;
+    }
+    this.matrixModeActive = false;
+    if (this.studioLayoutSelect) this.studioLayoutSelect.value = 'single';
+    if (this.studioMatrixViewport) this.studioMatrixViewport.style.display = 'none';
+    if (this.studioViewport) this.studioViewport.style.display = 'flex';
 
     this.activeStudioDevice = null;
     if (this.devicesStudioPanel) this.devicesStudioPanel.style.display = 'none';
@@ -1199,11 +1228,24 @@ class DeviceLabApp {
     const dev = this.activeStudioDevice;
     const qualityVal = this.studioQualitySelect ? parseInt(this.studioQualitySelect.value, 10) : 720;
     const fpsVal = this.studioFpsSelect ? parseInt(this.studioFpsSelect.value, 10) : 30;
+    let codecVal = this.studioCodecSelect ? this.studioCodecSelect.value : 'jpeg';
 
-    this.updateStreamUIState('STARTING', 'Connecting WebSocket and starting capture pipe...', 'Negotiating Stream');
+    // Verify browser WebCodecs support if H.264 is requested
+    if (codecVal === 'h264' && (typeof window.VideoDecoder === 'undefined' || typeof window.Worker === 'undefined')) {
+      this.showToast('WebCodecs not supported in this browser; falling back to standard JPEG stream.', 'info', 3000);
+      codecVal = 'jpeg';
+      if (this.studioCodecSelect) this.studioCodecSelect.value = 'jpeg';
+    }
+
+    this.h264Active = (codecVal === 'h264');
+    this.updateStreamUIState('STARTING', `Connecting ${this.h264Active ? 'H.264 WebCodecs' : 'JPEG'} stream pipe...`, 'Negotiating Stream');
 
     try {
-      const res = await fetch(`/api/devices/${encodeURIComponent(dev.serial)}/stream/start`, {
+      const endpoint = this.h264Active
+        ? `/api/devices/${encodeURIComponent(dev.serial)}/stream/h264/start`
+        : `/api/devices/${encodeURIComponent(dev.serial)}/stream/start`;
+
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1220,49 +1262,127 @@ class DeviceLabApp {
       }
 
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${protocol}//${window.location.host}/ws/devices/${encodeURIComponent(dev.serial)}/stream`;
+      const wsUrl = this.h264Active
+        ? `${protocol}//${window.location.host}/ws/devices/${encodeURIComponent(dev.serial)}/stream/h264`
+        : `${protocol}//${window.location.host}/ws/devices/${encodeURIComponent(dev.serial)}/stream`;
 
       if (this.streamWs) {
         try { this.streamWs.close(); } catch {}
         this.streamWs = null;
       }
 
+      if (this.decoderWorker) {
+        try {
+          this.decoderWorker.postMessage({ type: 'close' });
+          this.decoderWorker.terminate();
+        } catch {}
+        this.decoderWorker = null;
+      }
+
       this.streamWs = new WebSocket(wsUrl);
 
-      this.streamWs.onopen = () => {
-        this.updateStreamUIState('STREAMING');
-        this.showToast(`Screen stream active (${qualityVal}p @ ${fpsVal}fps).`, 'success', 2500);
-      };
+      if (this.h264Active) {
+        this.streamWs.binaryType = 'arraybuffer';
 
-      this.streamWs.onmessage = (event) => {
-        if (typeof event.data === 'string') {
-          try {
-            const msg = JSON.parse(event.data);
-            if (msg.type === 'frame') {
-              this.renderFrame(msg.data, msg.fps);
-            } else if (msg.type === 'state') {
-              if (msg.state === 'Stopped') {
-                this.updateStreamUIState('STOPPED', 'Stream stopped by server.', 'Stream Stopped');
-              }
-            } else if (msg.type === 'error') {
-              this.updateStreamUIState('ERROR', msg.message || 'Stream error encountered.', 'Stream Error');
-              this.showToast(`Stream error: ${msg.message || msg.code}`, 'error', 4000);
+        // Initialize WebCodecs Worker
+        try {
+          this.decoderWorker = new Worker('/static/decoder_worker.js');
+          this.decoderWorker.onmessage = (workerEvt) => {
+            const wmsg = workerEvt.data;
+            if (wmsg.type === 'error') {
+              logger.error('Decoder worker error: ' + wmsg.error);
             }
-          } catch (e) {
-            // Non-JSON frame
-          }
-        } else if (event.data instanceof Blob) {
-          const url = URL.createObjectURL(event.data);
-          const img = new Image();
-          img.onload = () => {
-            if (this.canvasCtx && this.studioScreenCanvas) {
-              this.canvasCtx.drawImage(img, 0, 0, this.studioScreenCanvas.width, this.studioScreenCanvas.height);
-            }
-            URL.revokeObjectURL(url);
           };
-          img.src = url;
+
+          this.decoderWorker.postMessage({
+            type: 'init',
+            codec: 'avc1.42C01E',
+            width: this.studioScreenCanvas ? this.studioScreenCanvas.width : 720,
+            height: this.studioScreenCanvas ? this.studioScreenCanvas.height : 1280
+          });
+        } catch (workerErr) {
+          logger.warn('Could not launch decoder worker, decoding directly on main thread: ' + workerErr);
         }
-      };
+
+        let h264FrameCount = 0;
+        let h264FpsTimer = performance.now();
+
+        this.streamWs.onopen = () => {
+          this.updateStreamUIState('STREAMING');
+          this.showToast(`H.264 WebCodecs stream active (${qualityVal}p @ ${fpsVal}fps).`, 'success', 2500);
+        };
+
+        this.streamWs.onmessage = (event) => {
+          if (typeof event.data === 'string') {
+            try {
+              const msg = JSON.parse(event.data);
+              if (msg.type === 'h264_status' && msg.state === 'stopped') {
+                this.updateStreamUIState('STOPPED', 'H.264 stream stopped by server.', 'Stream Stopped');
+              } else if (msg.type === 'error') {
+                this.updateStreamUIState('ERROR', msg.message || 'Stream error encountered.', 'Stream Error');
+                this.showToast(`Stream error: ${msg.message || msg.code}`, 'error', 4000);
+              }
+            } catch {}
+          } else if (event.data instanceof ArrayBuffer) {
+            h264FrameCount++;
+            const now = performance.now();
+            if (now - h264FpsTimer >= 1000) {
+              const liveFps = (h264FrameCount * 1000 / (now - h264FpsTimer)).toFixed(1);
+              if (this.studioHudFps) this.studioHudFps.textContent = `${liveFps} FPS`;
+              if (this.diagFps) this.diagFps.textContent = liveFps;
+              h264FrameCount = 0;
+              h264FpsTimer = now;
+            }
+
+            if (this.decoderWorker) {
+              const u8 = new Uint8Array(event.data);
+              const isKey = (u8.length > 4 && (u8[4] & 0x1F) === 5);
+              this.decoderWorker.postMessage({
+                type: 'decode',
+                data: event.data,
+                isKeyframe: isKey,
+                timestamp: performance.now() * 1000
+              }, [event.data]);
+            }
+          }
+        };
+      } else {
+        // Standard JPEG pipeline
+        this.streamWs.onopen = () => {
+          this.updateStreamUIState('STREAMING');
+          this.showToast(`Screen stream active (${qualityVal}p @ ${fpsVal}fps).`, 'success', 2500);
+        };
+
+        this.streamWs.onmessage = (event) => {
+          if (typeof event.data === 'string') {
+            try {
+              const msg = JSON.parse(event.data);
+              if (msg.type === 'frame') {
+                this.renderFrame(msg.data, msg.fps);
+              } else if (msg.type === 'state') {
+                if (msg.state === 'Stopped') {
+                  this.updateStreamUIState('STOPPED', 'Stream stopped by server.', 'Stream Stopped');
+                }
+              } else if (msg.type === 'error') {
+                this.updateStreamUIState('ERROR', msg.message || 'Stream error encountered.', 'Stream Error');
+                this.showToast(`Stream error: ${msg.message || msg.code}`, 'error', 4000);
+              }
+            } catch (e) {
+              // Non-JSON frame
+            }
+          } else if (event.data instanceof Blob) {
+            const url = URL.createObjectURL(event.data);
+            const img = new Image();
+            img.onload = () => {
+              if (this.canvasCtx && this.studioScreenCanvas) {
+                this.canvasCtx.drawImage(img, 0, 0, this.studioScreenCanvas.width, this.studioScreenCanvas.height);
+              }
+              URL.revokeObjectURL(url);
+            };
+            img.src = url;
+          }
+        };
+      }
 
       this.streamWs.onerror = () => {
         this.updateStreamUIState('ERROR', 'WebSocket connection encountered a network error.', 'Stream Connection Error');
@@ -1307,19 +1427,29 @@ class DeviceLabApp {
       this.streamWs = null;
     }
 
+    if (this.decoderWorker) {
+      try {
+        this.decoderWorker.postMessage({ type: 'close' });
+        this.decoderWorker.terminate();
+      } catch {}
+      this.decoderWorker = null;
+    }
+
     if (this.pollDiagTimer) {
       clearInterval(this.pollDiagTimer);
       this.pollDiagTimer = null;
     }
 
     if (this.activeStudioDevice) {
+      const stopEndpoint = this.h264Active
+        ? `/api/devices/${encodeURIComponent(this.activeStudioDevice.serial)}/stream/h264/stop`
+        : `/api/devices/${encodeURIComponent(this.activeStudioDevice.serial)}/stream/stop`;
       try {
-        await fetch(`/api/devices/${encodeURIComponent(this.activeStudioDevice.serial)}/stream/stop`, {
-          method: 'POST'
-        });
+        await fetch(stopEndpoint, { method: 'POST' });
       } catch {}
     }
 
+    this.h264Active = false;
     this.updateStreamUIState('STOPPED', 'Screen stream stopped. Click "Start Stream" to resume.', 'Stream Paused');
   }
 
@@ -1666,6 +1796,135 @@ class DeviceLabApp {
     } else {
       document.exitFullscreen().catch(() => {});
     }
+  }
+
+  /* ==========================================================================
+     Multi-Device Matrix Grid & Thumbnail Preview Engine (Phase 27)
+     ========================================================================== */
+
+  switchStudioLayout(mode) {
+    if (mode === 'matrix') {
+      this.matrixModeActive = true;
+      if (this.studioViewport) this.studioViewport.style.display = 'none';
+      if (this.studioMatrixViewport) this.studioMatrixViewport.style.display = 'grid';
+      this.renderMatrixGrid();
+      this.pollMatrixThumbnails();
+      if (!this.matrixRefreshTimer) {
+        this.matrixRefreshTimer = setInterval(() => this.pollMatrixThumbnails(), 3000);
+      }
+      this.showToast('Matrix Grid View active (2x2 fleet preview).', 'info', 2000);
+    } else {
+      this.matrixModeActive = false;
+      if (this.matrixRefreshTimer) {
+        clearInterval(this.matrixRefreshTimer);
+        this.matrixRefreshTimer = null;
+      }
+      if (this.studioMatrixViewport) this.studioMatrixViewport.style.display = 'none';
+      if (this.studioViewport) this.studioViewport.style.display = 'flex';
+      this.showToast('Single Viewport layout active.', 'info', 1500);
+    }
+  }
+
+  renderMatrixGrid() {
+    if (!this.studioMatrixViewport) return;
+    const devs = (this.devices && this.devices.length > 0) ? this.devices.slice(0, 4) : [];
+    if (devs.length === 0 && this.activeStudioDevice) {
+      devs.push(this.activeStudioDevice);
+    }
+
+    if (devs.length === 0) {
+      this.studioMatrixViewport.innerHTML = `
+        <div class="matrix-cell-placeholder" style="grid-column: 1 / -1;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          </svg>
+          <div>No devices discovered for matrix grid.</div>
+        </div>`;
+      return;
+    }
+
+    this.studioMatrixViewport.innerHTML = devs.map(dev => {
+      const isFocused = this.activeStudioDevice && this.activeStudioDevice.serial === dev.serial;
+      const statusClass = (dev.status === 'online' || dev.state === 'available' || dev.state === 'connected') ? 'complete' : 'idle';
+      const name = dev.display_name || dev.model || dev.serial;
+      return `
+        <div class="matrix-cell ${isFocused ? 'focused' : ''}" id="matrix-cell-${encodeURIComponent(dev.serial)}" data-serial="${dev.serial}">
+          <div class="matrix-cell-header">
+            <div class="matrix-cell-title-wrap">
+              <span class="status-dot ${statusClass}"></span>
+              <span class="matrix-cell-title" title="${name}">${this.escapeHtml(name)}</span>
+            </div>
+            <span class="matrix-cell-serial">${this.escapeHtml(dev.serial)}</span>
+          </div>
+          <div class="matrix-cell-stage">
+            <img id="matrix-img-${encodeURIComponent(dev.serial)}" class="matrix-cell-canvas" alt="Preview for ${name}" src="/api/devices/${encodeURIComponent(dev.serial)}/thumbnail" onerror="this.style.opacity='0.2'" />
+          </div>
+          <div class="matrix-cell-footer">
+            <span class="tabular-nums" style="color: var(--text-tertiary);">${this.escapeHtml(dev.platform || 'android')}</span>
+            <div class="matrix-cell-actions">
+              <button class="btn sm ${isFocused ? 'primary' : ''}" type="button" data-action="focus-matrix" data-serial="${this.escapeHtml(dev.serial)}">
+                <span>${isFocused ? 'Focused' : 'Focus'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  async pollMatrixThumbnails() {
+    if (!this.matrixModeActive) return;
+    try {
+      const res = await fetch('/api/devices/thumbnails/batch?max_width=320&quality=65');
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.thumbnails) {
+          for (const [serial, info] of Object.entries(data.thumbnails)) {
+            const imgEl = document.getElementById(`matrix-img-${encodeURIComponent(serial)}`);
+            if (imgEl && info.thumbnail) {
+              imgEl.src = info.thumbnail;
+              imgEl.style.opacity = '1.0';
+            }
+          }
+        }
+      }
+    } catch {}
+  }
+
+  async focusMatrixDevice(serial) {
+    const targetDev = this.devices.find(d => d.serial === serial) || (this.activeStudioDevice && this.activeStudioDevice.serial === serial ? this.activeStudioDevice : { serial: serial, display_name: serial });
+    if (!targetDev) return;
+
+    this.activeStudioDevice = targetDev;
+    if (this.studioDeviceName) this.studioDeviceName.textContent = targetDev.display_name || targetDev.model || targetDev.serial;
+    if (this.studioDeviceSerial) this.studioDeviceSerial.textContent = targetDev.serial;
+
+    // Update highlight classes in matrix
+    if (this.studioMatrixViewport) {
+      this.studioMatrixViewport.querySelectorAll('.matrix-cell').forEach(cell => {
+        if (cell.getAttribute('data-serial') === serial) {
+          cell.classList.add('focused');
+          const btn = cell.querySelector('button');
+          if (btn) {
+            btn.className = 'btn sm primary';
+            const span = btn.querySelector('span');
+            if (span) span.textContent = 'Focused';
+          }
+        } else {
+          cell.classList.remove('focused');
+          const btn = cell.querySelector('button');
+          if (btn) {
+            btn.className = 'btn sm';
+            const span = btn.querySelector('span');
+            if (span) span.textContent = 'Focus';
+          }
+        }
+      });
+    }
+
+    // Refresh lease state for newly focused device
+    await this.checkCurrentLease();
+    this.showToast(`Teleoperation target focused on ${targetDev.display_name || targetDev.serial}`, 'success', 2000);
   }
 
   async pollDiagnostics() {

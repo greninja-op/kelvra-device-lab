@@ -4,6 +4,7 @@ Provides REST and WebSocket endpoints for device teleoperation, streaming, and t
 """
 
 import asyncio
+import base64
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -65,6 +66,12 @@ from src.automation_engine import (
     StepExecutionResult,
     WorkflowExecutionReport,
 )
+from src.scrcpy_streamer import (
+    ScrcpyStreamer,
+    ScrcpyConfig,
+    ScrcpyDiagnostics,
+    ScrcpyStreamState,
+)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger("kelvra.device_lab.server")
@@ -74,6 +81,7 @@ device_manager = DeviceManager()
 input_controller = InputController(device_manager)
 telemetry_collector = TelemetryCollector(device_manager)
 screen_streamer = ScreenStreamer(input_controller)
+scrcpy_streamer = ScrcpyStreamer()
 logcat_service = LogcatService(device_manager)
 bench_bridge = BenchBridge(device_manager)
 test_runner = TestRunner(device_manager, input_controller)
@@ -281,6 +289,7 @@ async def lifespan(app: FastAPI):
     # Shutdown
     monitor_task.cancel()
     await screen_streamer.stop_all()
+    await scrcpy_streamer.stop_all()
     await avd_manager.shutdown_all()
     apple_provider.cleanup()
     for s in list(recording_manager._active_sessions.values()):
@@ -673,6 +682,52 @@ async def get_stream_status(serial_or_id: str):
     return diag.model_dump()
 
 
+class H264StreamConfigRequest(BaseModel):
+    max_fps: int = Field(default=60, ge=15, le=120)
+    max_width: int = Field(default=1080, ge=320, le=2560)
+    bitrate: int = Field(default=8000000, ge=1000000, le=20000000)
+    mock_mode: bool = False
+
+
+@app.post("/api/devices/{serial_or_id}/stream/h264/start")
+async def start_device_h264_stream(serial_or_id: str, req: Optional[H264StreamConfigRequest] = None):
+    _sync_mock_devices()
+    dev = device_registry.get_device(serial_or_id)
+    raw_serial = dev.serial if dev else _resolve_serial(serial_or_id)
+    if dev and dev.state == DeviceLifecycleState.UNAUTHORIZED:
+        raise HTTPException(status_code=403, detail="Device is unauthorized. Cannot stream screen.")
+
+    cfg = None
+    if req:
+        cfg = ScrcpyConfig(
+            max_fps=req.max_fps,
+            max_width=req.max_width,
+            bitrate=req.bitrate,
+            mock_mode=req.mock_mode
+        )
+    success = await scrcpy_streamer.start_stream(raw_serial, cfg)
+    if not success:
+        diag = scrcpy_streamer.get_diagnostics(raw_serial)
+        raise HTTPException(status_code=500, detail=diag.error_message or "Failed to start H.264 video stream")
+    return {"status": "started", "serial": raw_serial, "codec": "h264", "fps": cfg.max_fps if cfg else 60}
+
+
+@app.post("/api/devices/{serial_or_id}/stream/h264/stop")
+async def stop_device_h264_stream(serial_or_id: str):
+    dev = device_registry.get_device(serial_or_id)
+    raw_serial = dev.serial if dev else _resolve_serial(serial_or_id)
+    await scrcpy_streamer.stop_stream(raw_serial)
+    return {"status": "stopped", "serial": raw_serial, "codec": "h264"}
+
+
+@app.get("/api/devices/{serial_or_id}/stream/h264/status")
+async def get_h264_stream_status(serial_or_id: str):
+    dev = device_registry.get_device(serial_or_id)
+    raw_serial = dev.serial if dev else _resolve_serial(serial_or_id)
+    diag = scrcpy_streamer.get_diagnostics(raw_serial)
+    return diag.model_dump()
+
+
 @app.post("/api/devices/{serial_or_id}/lease")
 async def acquire_device_lease(serial_or_id: str, req: LeaseRequest):
     _sync_mock_devices()
@@ -757,6 +812,8 @@ async def get_telemetry(serial: str):
 
 @app.get("/api/devices/{serial}/screenshot")
 async def get_screenshot(serial: str, max_width: int = 1080, quality: int = 75):
+    max_width = max(16, min(3840, int(max_width)))
+    quality = max(1, min(100, int(quality)))
     raw_serial = _resolve_serial(serial)
     dev = device_manager.get_device(raw_serial)
     if not dev:
@@ -767,6 +824,87 @@ async def get_screenshot(serial: str, max_width: int = 1080, quality: int = 75):
         raise HTTPException(status_code=500, detail="Failed to capture screenshot")
     
     return Response(content=img_bytes, media_type="image/jpeg")
+
+
+@app.get("/api/devices/{serial_or_id}/thumbnail")
+async def get_device_thumbnail(serial_or_id: str, max_width: int = 320, quality: int = 65):
+    max_width = max(16, min(3840, int(max_width)))
+    quality = max(1, min(100, int(quality)))
+    _sync_mock_devices()
+    raw_serial = _resolve_serial(serial_or_id)
+    dev = device_registry.get_device(serial_or_id) or device_manager.get_device(raw_serial)
+    if not dev:
+        raise HTTPException(status_code=404, detail=f"Device '{serial_or_id}' not found")
+    if hasattr(dev, "state") and dev.state == DeviceLifecycleState.UNAUTHORIZED:
+        raise HTTPException(status_code=403, detail="Device is unauthorized. Cannot capture thumbnail.")
+    
+    img_bytes = await asyncio.to_thread(input_controller.take_screenshot, raw_serial, max_width, quality)
+    if not img_bytes:
+        raise HTTPException(status_code=500, detail="Failed to capture device thumbnail")
+    
+    return Response(
+        content=img_bytes,
+        media_type="image/jpeg",
+        headers={"Cache-Control": "public, max-age=1"}
+    )
+
+
+@app.get("/api/devices/thumbnails/batch")
+async def get_batch_thumbnails(max_width: int = 320, quality: int = 65):
+    max_width = max(16, min(3840, int(max_width)))
+    quality = max(1, min(100, int(quality)))
+    _sync_mock_devices()
+    devices = device_registry.list_devices()
+    if not devices:
+        mgr_devs = list(device_manager._cached_devices.values()) + list(device_manager._mock_devices.values())
+    else:
+        mgr_devs = devices
+
+    results = {}
+    for d in mgr_devs:
+        serial = d.serial if hasattr(d, "serial") else getattr(d, "id", "")
+        if not serial:
+            continue
+        raw_serial = _resolve_serial(serial)
+        is_unauth = (hasattr(d, "state") and d.state == DeviceLifecycleState.UNAUTHORIZED) or (
+            hasattr(d, "status") and d.status == DeviceStatus.UNAUTHORIZED
+        )
+        name = getattr(d, "display_name", "") or getattr(d, "market_name", "") or serial
+        state_str = d.state.value if hasattr(d, "state") and hasattr(d.state, "value") else (
+            d.status.value if hasattr(d, "status") and hasattr(d.status, "value") else "unknown"
+        )
+        
+        if is_unauth:
+            results[raw_serial] = {
+                "serial": raw_serial,
+                "display_name": name,
+                "status": "unauthorized",
+                "state": state_str,
+                "thumbnail": None
+            }
+            continue
+
+        try:
+            img_bytes = await asyncio.to_thread(input_controller.take_screenshot, raw_serial, max_width, quality)
+            b64_str = base64.b64encode(img_bytes).decode("ascii") if img_bytes else None
+            results[raw_serial] = {
+                "serial": raw_serial,
+                "display_name": name,
+                "status": "online" if img_bytes else "error",
+                "state": state_str,
+                "thumbnail": f"data:image/jpeg;base64,{b64_str}" if b64_str else None
+            }
+        except Exception as exc:
+            results[raw_serial] = {
+                "serial": raw_serial,
+                "display_name": name,
+                "status": "error",
+                "state": state_str,
+                "error": str(exc),
+                "thumbnail": None
+            }
+
+    return {"count": len(results), "thumbnails": results}
 
 
 @app.post("/api/devices/{serial}/input/tap")
@@ -929,6 +1067,21 @@ async def ws_screen_stream(websocket: WebSocket, serial: str):
         await screen_streamer.disconnect(raw_serial, websocket)
     except Exception:
         await screen_streamer.disconnect(raw_serial, websocket)
+
+
+@app.websocket("/ws/devices/{serial}/stream/h264")
+async def ws_h264_stream(websocket: WebSocket, serial: str):
+    raw_serial = _resolve_serial(serial)
+    await scrcpy_streamer.connect(raw_serial, websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            if data == "ping":
+                await websocket.send_text("pong")
+    except WebSocketDisconnect:
+        await scrcpy_streamer.disconnect(raw_serial, websocket)
+    except Exception:
+        await scrcpy_streamer.disconnect(raw_serial, websocket)
 
 
 @app.websocket("/ws/devices/{serial}/logcat")
@@ -1443,7 +1596,12 @@ async def delete_artifact_endpoint(artifact_id: str, confirm: bool = False):
 
 
 # --- STATIC ASSETS & SPA ROUTING ---
-static_dir = os.path.join(os.path.dirname(__file__), "..", "static")
+candidate_dirs = [
+    os.path.join(os.path.dirname(__file__), "..", "static"),
+    os.path.join(os.path.dirname(__file__), "static"),
+    os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"),
+]
+static_dir = next((d for d in candidate_dirs if os.path.isdir(d)), candidate_dirs[0])
 
 @app.get("/overview", include_in_schema=False)
 @app.get("/devices", include_in_schema=False)
@@ -1460,3 +1618,16 @@ async def serve_spa_page():
 
 if os.path.exists(static_dir):
     app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+
+
+def main():
+    """CLI entry point for running KELVRA Device Lab standalone."""
+    import uvicorn
+    host = os.environ.get("KELVRA_DEVICE_LAB_HOST", "127.0.0.1")
+    port = int(os.environ.get("KELVRA_DEVICE_LAB_PORT", "8098"))
+    log_level = os.environ.get("LOG_LEVEL", "info").lower()
+    uvicorn.run("src.server:app", host=host, port=port, log_level=log_level)
+
+
+if __name__ == "__main__":
+    main()

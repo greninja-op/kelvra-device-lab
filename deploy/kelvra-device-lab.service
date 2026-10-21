@@ -1,0 +1,40 @@
+# KELVRA Device Lab — Production systemd Unit Template
+# Place at: /etc/systemd/system/kelvra-device-lab.service
+# Control via: systemctl daemon-reload && systemctl enable --now kelvra-device-lab
+
+[Unit]
+Description=KELVRA Device Lab Standalone Service
+Documentation=https://github.com/greninja-op/kelvra-device-lab
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kelvra
+Group=kelvra
+WorkingDirectory=/opt/kelvra/kelvra-device-lab
+ExecStart=/opt/kelvra/kelvra-device-lab/venv/bin/python -m src.server
+Restart=on-failure
+RestartSec=5s
+
+# Environment configuration
+Environment=PYTHONUNBUFFERED=1
+Environment=KELVRA_DEVICE_LAB_HOST=0.0.0.0
+Environment=KELVRA_DEVICE_LAB_PORT=8098
+Environment=LOG_LEVEL=info
+Environment=KELVRA_AUTH_REQUIRED=0
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=true
+LimitNOFILE=65535
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kelvra-device-lab
+
+[Install]
+WantedBy=multi-user.target

@@ -199,9 +199,9 @@
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
             <div class="notice-body">
-              <div class="notice-title">Device Inventory & Connection Management Active (Phase 8)</div>
+              <div class="notice-title">KELVRA Device Lab Operational</div>
               <div class="notice-text">
-                The typed domain model, 10-state lifecycle FSM, Android ADB provider, thread-safe device registry, and live inventory UI are fully operational. Screen streaming and input teleoperation are scheduled for Phase 9.
+                Autonomous mobile fleet management, real-time screen streaming, low-latency teleoperation, AVD lifecycle control, automation engine, and Bench agent MCP integration are fully active.
               </div>
             </div>
           </div>
@@ -405,6 +405,20 @@
                     </select>
                   </div>
 
+                  <div class="select-wrapper">
+                    <select id="studio-codec-select" class="select-input sm" aria-label="Video Codec">
+                      <option value="jpeg" selected>JPEG Compatible</option>
+                      <option value="h264">H.264 WebCodecs</option>
+                    </select>
+                  </div>
+
+                  <div class="select-wrapper">
+                    <select id="studio-layout-select" class="select-input sm" aria-label="Studio Layout">
+                      <option value="single" selected>Single Viewport</option>
+                      <option value="matrix">Matrix Grid (2x2)</option>
+                    </select>
+                  </div>
+
                   <button id="btn-studio-screenshot" class="btn sm" type="button" title="Capture Screenshot" aria-label="Capture Screenshot">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
@@ -459,6 +473,11 @@
                     <div id="studio-overlay-title" class="studio-overlay-title">Stream Idle</div>
                     <div id="studio-overlay-desc" class="studio-overlay-desc">Click "Start Stream" to negotiate visual teleoperation session.</div>
                   </div>
+                </div>
+
+                <!-- Multi-Device Matrix Grid Viewport -->
+                <div id="studio-matrix-viewport" class="studio-matrix-viewport" style="display: none;">
+                  <!-- Rendered dynamically by app.js -->
                 </div>
 
                 <!-- Hardware Navigation Buttons -->

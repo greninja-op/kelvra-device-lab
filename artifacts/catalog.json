@@ -1321,5 +1321,1565 @@
       "execution_id": "exec-0daa768037",
       "workflow_name": "Acceptance Smoke Suite"
     }
+  },
+  {
+    "artifact_id": "art-158936e9c534",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-158936e9c534_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-19T19:23:04.002939+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-15db806a58c9",
+    "name": "recording_rec-6c7d822d3e.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-15db806a58c9_recording_rec-6c7d822d3e.mp4",
+    "created_at": "2026-10-19T19:23:04.675411+00:00",
+    "metadata": {
+      "session_id": "rec-6c7d822d3e",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-19T19:23:04.666255+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-2adc0140d1c8",
+    "name": "log_export_mock-pixel-7_1792437785.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-2adc0140d1c8_log_export_mock-pixel-7_1792437785.json",
+    "created_at": "2026-10-19T19:23:05.520050+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-013694ae2f80",
+    "name": "report_exec-5d30bedd69.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-013694ae2f80_report_exec-5d30bedd69.json",
+    "created_at": "2026-10-19T19:23:05.970549+00:00",
+    "metadata": {
+      "execution_id": "exec-5d30bedd69",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-7423c3f750e2",
+    "name": "report_exec-394c0e269e.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-7423c3f750e2_report_exec-394c0e269e.json",
+    "created_at": "2026-10-19T19:23:05.988306+00:00",
+    "metadata": {
+      "execution_id": "exec-394c0e269e",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-7636aa6ef887",
+    "name": "report_exec-4b568661ca.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-7636aa6ef887_report_exec-4b568661ca.json",
+    "created_at": "2026-10-19T19:23:07.901536+00:00",
+    "metadata": {
+      "execution_id": "exec-4b568661ca",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-054f7bbddc11",
+    "name": "auto_screen_p15-system-device_748922.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-054f7bbddc11_auto_screen_p15-system-device_748922.jpeg",
+    "created_at": "2026-10-19T19:23:09.118823+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-0e941776d826",
+    "name": "report_exec-334c4e7d62.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1045,
+    "relative_path": "reports/art-0e941776d826_report_exec-334c4e7d62.json",
+    "created_at": "2026-10-19T19:23:09.123030+00:00",
+    "metadata": {
+      "execution_id": "exec-334c4e7d62",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-cc240df840b1",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-cc240df840b1_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-19T19:28:28.877086+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-a1c980fcdf7c",
+    "name": "recording_rec-533a167644.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-a1c980fcdf7c_recording_rec-533a167644.mp4",
+    "created_at": "2026-10-19T19:28:29.517124+00:00",
+    "metadata": {
+      "session_id": "rec-533a167644",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-19T19:28:29.508465+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-4feed7a04442",
+    "name": "log_export_mock-pixel-7_1792438110.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-4feed7a04442_log_export_mock-pixel-7_1792438110.json",
+    "created_at": "2026-10-19T19:28:30.330077+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-406197999a17",
+    "name": "report_exec-e0872e4ec3.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-406197999a17_report_exec-e0872e4ec3.json",
+    "created_at": "2026-10-19T19:28:30.741161+00:00",
+    "metadata": {
+      "execution_id": "exec-e0872e4ec3",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-97e7b2797c28",
+    "name": "report_exec-6ef147adf1.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-97e7b2797c28_report_exec-6ef147adf1.json",
+    "created_at": "2026-10-19T19:28:30.752619+00:00",
+    "metadata": {
+      "execution_id": "exec-6ef147adf1",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-5e490d12f751",
+    "name": "report_exec-cec1aa5ad4.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 903,
+    "relative_path": "reports/art-5e490d12f751_report_exec-cec1aa5ad4.json",
+    "created_at": "2026-10-19T19:28:32.556809+00:00",
+    "metadata": {
+      "execution_id": "exec-cec1aa5ad4",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-920a5a28b800",
+    "name": "auto_screen_p15-system-device_749246.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-920a5a28b800_auto_screen_p15-system-device_749246.jpeg",
+    "created_at": "2026-10-19T19:28:33.545177+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-92a16ca9b6ef",
+    "name": "report_exec-9902a6b022.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1044,
+    "relative_path": "reports/art-92a16ca9b6ef_report_exec-9902a6b022.json",
+    "created_at": "2026-10-19T19:28:33.549620+00:00",
+    "metadata": {
+      "execution_id": "exec-9902a6b022",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-e40e815521e7",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-e40e815521e7_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-19T19:35:53.729675+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-cb8cc87e4378",
+    "name": "recording_rec-6e053ead2a.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-cb8cc87e4378_recording_rec-6e053ead2a.mp4",
+    "created_at": "2026-10-19T19:35:54.679138+00:00",
+    "metadata": {
+      "session_id": "rec-6e053ead2a",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-19T19:35:54.666239+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-8519123e80a2",
+    "name": "log_export_mock-pixel-7_1792438555.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-8519123e80a2_log_export_mock-pixel-7_1792438555.json",
+    "created_at": "2026-10-19T19:35:55.941252+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-e4b8104d4d03",
+    "name": "report_exec-d38049be7f.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 619,
+    "relative_path": "reports/art-e4b8104d4d03_report_exec-d38049be7f.json",
+    "created_at": "2026-10-19T19:35:56.656355+00:00",
+    "metadata": {
+      "execution_id": "exec-d38049be7f",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-00ec8282e6aa",
+    "name": "report_exec-64a7e787bd.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-00ec8282e6aa_report_exec-64a7e787bd.json",
+    "created_at": "2026-10-19T19:35:56.672631+00:00",
+    "metadata": {
+      "execution_id": "exec-64a7e787bd",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-eae8e590e9f4",
+    "name": "report_exec-11b7067f02.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-eae8e590e9f4_report_exec-11b7067f02.json",
+    "created_at": "2026-10-19T19:35:58.795449+00:00",
+    "metadata": {
+      "execution_id": "exec-11b7067f02",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-0ed92dd16d81",
+    "name": "auto_screen_p15-system-device_749693.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-0ed92dd16d81_auto_screen_p15-system-device_749693.jpeg",
+    "created_at": "2026-10-19T19:36:00.244947+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-560f61f65925",
+    "name": "report_exec-679e90ec5c.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1045,
+    "relative_path": "reports/art-560f61f65925_report_exec-679e90ec5c.json",
+    "created_at": "2026-10-19T19:36:00.253107+00:00",
+    "metadata": {
+      "execution_id": "exec-679e90ec5c",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-7bfd735f7180",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-7bfd735f7180_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-19T19:47:06.905220+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-038d1f3c676d",
+    "name": "recording_rec-87f76f21fb.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-038d1f3c676d_recording_rec-87f76f21fb.mp4",
+    "created_at": "2026-10-19T19:47:07.849186+00:00",
+    "metadata": {
+      "session_id": "rec-87f76f21fb",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-19T19:47:07.836976+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-63b0a3b2d79c",
+    "name": "log_export_mock-pixel-7_1792439229.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-63b0a3b2d79c_log_export_mock-pixel-7_1792439229.json",
+    "created_at": "2026-10-19T19:47:09.102337+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-7e456b4e4d2a",
+    "name": "report_exec-8100f83403.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-7e456b4e4d2a_report_exec-8100f83403.json",
+    "created_at": "2026-10-19T19:47:09.842287+00:00",
+    "metadata": {
+      "execution_id": "exec-8100f83403",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-cf98c9ca1629",
+    "name": "report_exec-26eff3659e.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-cf98c9ca1629_report_exec-26eff3659e.json",
+    "created_at": "2026-10-19T19:47:09.859338+00:00",
+    "metadata": {
+      "execution_id": "exec-26eff3659e",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-f6737cf07ea1",
+    "name": "report_exec-b5d403e027.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-f6737cf07ea1_report_exec-b5d403e027.json",
+    "created_at": "2026-10-19T19:47:11.873522+00:00",
+    "metadata": {
+      "execution_id": "exec-b5d403e027",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-b42b09eed995",
+    "name": "auto_screen_p15-system-device_750366.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-b42b09eed995_auto_screen_p15-system-device_750366.jpeg",
+    "created_at": "2026-10-19T19:47:13.493332+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-40d7792f39b2",
+    "name": "report_exec-30902c78de.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1045,
+    "relative_path": "reports/art-40d7792f39b2_report_exec-30902c78de.json",
+    "created_at": "2026-10-19T19:47:13.500917+00:00",
+    "metadata": {
+      "execution_id": "exec-30902c78de",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-b502061a8660",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-b502061a8660_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T04:32:18.993669+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-f7802fb66310",
+    "name": "recording_rec-0f2f4a9057.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-f7802fb66310_recording_rec-0f2f4a9057.mp4",
+    "created_at": "2026-10-20T04:32:19.810399+00:00",
+    "metadata": {
+      "session_id": "rec-0f2f4a9057",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T04:32:19.801226+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-8d5ce5b85a2d",
+    "name": "log_export_mock-pixel-7_1792470740.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-8d5ce5b85a2d_log_export_mock-pixel-7_1792470740.json",
+    "created_at": "2026-10-20T04:32:20.664125+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-732f31e97533",
+    "name": "report_exec-d7d7ee9a7f.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 619,
+    "relative_path": "reports/art-732f31e97533_report_exec-d7d7ee9a7f.json",
+    "created_at": "2026-10-20T04:32:21.139130+00:00",
+    "metadata": {
+      "execution_id": "exec-d7d7ee9a7f",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-0bd6b9930e86",
+    "name": "report_exec-4496f48113.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 619,
+    "relative_path": "reports/art-0bd6b9930e86_report_exec-4496f48113.json",
+    "created_at": "2026-10-20T04:32:21.152097+00:00",
+    "metadata": {
+      "execution_id": "exec-4496f48113",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-e8e828a173fa",
+    "name": "report_exec-0aae902a73.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 903,
+    "relative_path": "reports/art-e8e828a173fa_report_exec-0aae902a73.json",
+    "created_at": "2026-10-20T04:32:22.985301+00:00",
+    "metadata": {
+      "execution_id": "exec-0aae902a73",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-e497da622477",
+    "name": "auto_screen_p15-system-device_781877.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-e497da622477_auto_screen_p15-system-device_781877.jpeg",
+    "created_at": "2026-10-20T04:32:24.181121+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-64f07804f13a",
+    "name": "report_exec-6ae7710d32.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1044,
+    "relative_path": "reports/art-64f07804f13a_report_exec-6ae7710d32.json",
+    "created_at": "2026-10-20T04:32:24.186063+00:00",
+    "metadata": {
+      "execution_id": "exec-6ae7710d32",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-bbe06b2a8f76",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-bbe06b2a8f76_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T05:10:04.161455+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-1e51bb087c7a",
+    "name": "recording_rec-9fd41f0e51.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-1e51bb087c7a_recording_rec-9fd41f0e51.mp4",
+    "created_at": "2026-10-20T05:10:04.941530+00:00",
+    "metadata": {
+      "session_id": "rec-9fd41f0e51",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T05:10:04.932408+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-b628db2b1d7c",
+    "name": "log_export_mock-pixel-7_1792473005.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-b628db2b1d7c_log_export_mock-pixel-7_1792473005.json",
+    "created_at": "2026-10-20T05:10:05.934030+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-52a6696d76c7",
+    "name": "report_exec-6889d9b094.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 619,
+    "relative_path": "reports/art-52a6696d76c7_report_exec-6889d9b094.json",
+    "created_at": "2026-10-20T05:10:06.611270+00:00",
+    "metadata": {
+      "execution_id": "exec-6889d9b094",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-907dcb52768f",
+    "name": "report_exec-01bccb1fee.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-907dcb52768f_report_exec-01bccb1fee.json",
+    "created_at": "2026-10-20T05:10:06.624923+00:00",
+    "metadata": {
+      "execution_id": "exec-01bccb1fee",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-4e805be6041c",
+    "name": "report_exec-095624ef6c.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-4e805be6041c_report_exec-095624ef6c.json",
+    "created_at": "2026-10-20T05:10:08.495654+00:00",
+    "metadata": {
+      "execution_id": "exec-095624ef6c",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-753c6c99c541",
+    "name": "auto_screen_p15-system-device_784142.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-753c6c99c541_auto_screen_p15-system-device_784142.jpeg",
+    "created_at": "2026-10-20T05:10:09.700589+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-59fa9c0a2c62",
+    "name": "report_exec-1b8f961ec8.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1044,
+    "relative_path": "reports/art-59fa9c0a2c62_report_exec-1b8f961ec8.json",
+    "created_at": "2026-10-20T05:10:09.721205+00:00",
+    "metadata": {
+      "execution_id": "exec-1b8f961ec8",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-5f05dfe03b33",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-5f05dfe03b33_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T06:43:37.841793+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-fdc7ac3b33ce",
+    "name": "recording_rec-47c7b4f5bc.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-fdc7ac3b33ce_recording_rec-47c7b4f5bc.mp4",
+    "created_at": "2026-10-20T06:44:11.989457+00:00",
+    "metadata": {
+      "session_id": "rec-47c7b4f5bc",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T06:44:11.980782+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-51a2a0953b59",
+    "name": "log_export_mock-pixel-7_1792478689.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-51a2a0953b59_log_export_mock-pixel-7_1792478689.json",
+    "created_at": "2026-10-20T06:44:49.461509+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-6782664870c6",
+    "name": "report_exec-538cfbf756.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-6782664870c6_report_exec-538cfbf756.json",
+    "created_at": "2026-10-20T06:44:53.459177+00:00",
+    "metadata": {
+      "execution_id": "exec-538cfbf756",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-0ef4e0e9a534",
+    "name": "report_exec-49cf922c3f.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-0ef4e0e9a534_report_exec-49cf922c3f.json",
+    "created_at": "2026-10-20T06:44:53.472052+00:00",
+    "metadata": {
+      "execution_id": "exec-49cf922c3f",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-a04313df6258",
+    "name": "report_exec-05fbc323c0.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-a04313df6258_report_exec-05fbc323c0.json",
+    "created_at": "2026-10-20T06:44:55.332383+00:00",
+    "metadata": {
+      "execution_id": "exec-05fbc323c0",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-af8d0d7936e6",
+    "name": "auto_screen_p15-system-device_789832.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-af8d0d7936e6_auto_screen_p15-system-device_789832.jpeg",
+    "created_at": "2026-10-20T06:44:59.710763+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-85e992942dcf",
+    "name": "report_exec-881e748fc4.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1045,
+    "relative_path": "reports/art-85e992942dcf_report_exec-881e748fc4.json",
+    "created_at": "2026-10-20T06:44:59.717331+00:00",
+    "metadata": {
+      "execution_id": "exec-881e748fc4",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-74a3f9c2c189",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-74a3f9c2c189_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T07:50:31.939839+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-518b18909af1",
+    "name": "recording_rec-41e5782456.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-518b18909af1_recording_rec-41e5782456.mp4",
+    "created_at": "2026-10-20T07:51:06.279732+00:00",
+    "metadata": {
+      "session_id": "rec-41e5782456",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T07:51:06.271233+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-1ce1f1a4a29d",
+    "name": "log_export_mock-pixel-7_1792482711.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-1ce1f1a4a29d_log_export_mock-pixel-7_1792482711.json",
+    "created_at": "2026-10-20T07:51:51.777307+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-b3abd7f1797f",
+    "name": "report_exec-8993d35055.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 619,
+    "relative_path": "reports/art-b3abd7f1797f_report_exec-8993d35055.json",
+    "created_at": "2026-10-20T07:52:14.497662+00:00",
+    "metadata": {
+      "execution_id": "exec-8993d35055",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-e8456d5f2812",
+    "name": "report_exec-704db3b98d.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 619,
+    "relative_path": "reports/art-e8456d5f2812_report_exec-704db3b98d.json",
+    "created_at": "2026-10-20T07:52:14.509476+00:00",
+    "metadata": {
+      "execution_id": "exec-704db3b98d",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-1b7aaf090d6f",
+    "name": "report_exec-1bb83caaef.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 902,
+    "relative_path": "reports/art-1b7aaf090d6f_report_exec-1bb83caaef.json",
+    "created_at": "2026-10-20T07:52:32.392036+00:00",
+    "metadata": {
+      "execution_id": "exec-1bb83caaef",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-d6e7e96ec9a4",
+    "name": "auto_screen_p15-system-device_793919.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-d6e7e96ec9a4_auto_screen_p15-system-device_793919.jpeg",
+    "created_at": "2026-10-20T07:53:06.686963+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-136cc571fc7b",
+    "name": "report_exec-f9abdae0b2.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1045,
+    "relative_path": "reports/art-136cc571fc7b_report_exec-f9abdae0b2.json",
+    "created_at": "2026-10-20T07:53:06.693655+00:00",
+    "metadata": {
+      "execution_id": "exec-f9abdae0b2",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-e5a079aeac18",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-e5a079aeac18_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T10:01:00.737669+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-c2881931e8b2",
+    "name": "recording_rec-e3c5567241.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-c2881931e8b2_recording_rec-e3c5567241.mp4",
+    "created_at": "2026-10-20T10:01:37.252311+00:00",
+    "metadata": {
+      "session_id": "rec-e3c5567241",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T10:01:37.239813+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-e61aff577626",
+    "name": "log_export_mock-pixel-7_1792490545.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-e61aff577626_log_export_mock-pixel-7_1792490545.json",
+    "created_at": "2026-10-20T10:02:25.544895+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-a6d4dc100336",
+    "name": "report_exec-064a4a5023.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-a6d4dc100336_report_exec-064a4a5023.json",
+    "created_at": "2026-10-20T10:02:49.948066+00:00",
+    "metadata": {
+      "execution_id": "exec-064a4a5023",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-a2cb8ec8317f",
+    "name": "report_exec-7733afd181.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-a2cb8ec8317f_report_exec-7733afd181.json",
+    "created_at": "2026-10-20T10:02:49.968202+00:00",
+    "metadata": {
+      "execution_id": "exec-7733afd181",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-d3eea9e232a8",
+    "name": "report_exec-eadfb2b9aa.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-d3eea9e232a8_report_exec-eadfb2b9aa.json",
+    "created_at": "2026-10-20T10:03:08.611607+00:00",
+    "metadata": {
+      "execution_id": "exec-eadfb2b9aa",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-d6d477bb1632",
+    "name": "auto_screen_p15-system-device_801759.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-d6d477bb1632_auto_screen_p15-system-device_801759.jpeg",
+    "created_at": "2026-10-20T10:03:45.084067+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-809f11f68099",
+    "name": "report_exec-02dc83bf5c.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1045,
+    "relative_path": "reports/art-809f11f68099_report_exec-02dc83bf5c.json",
+    "created_at": "2026-10-20T10:03:45.091661+00:00",
+    "metadata": {
+      "execution_id": "exec-02dc83bf5c",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-771ad31c81d3",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-771ad31c81d3_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T17:21:43.119164+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-1072fe137e4d",
+    "name": "recording_rec-5ceb06b116.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-1072fe137e4d_recording_rec-5ceb06b116.mp4",
+    "created_at": "2026-10-20T17:21:44.298816+00:00",
+    "metadata": {
+      "session_id": "rec-5ceb06b116",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T17:21:44.283812+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-1449175dd455",
+    "name": "log_export_mock-pixel-7_1792516906.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-1449175dd455_log_export_mock-pixel-7_1792516906.json",
+    "created_at": "2026-10-20T17:21:46.094202+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-cf13facdb5f9",
+    "name": "report_exec-af909a59dc.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-cf13facdb5f9_report_exec-af909a59dc.json",
+    "created_at": "2026-10-20T17:21:46.762202+00:00",
+    "metadata": {
+      "execution_id": "exec-af909a59dc",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-a3b699c1ebed",
+    "name": "report_exec-6f8d6d31a2.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 619,
+    "relative_path": "reports/art-a3b699c1ebed_report_exec-6f8d6d31a2.json",
+    "created_at": "2026-10-20T17:21:46.784573+00:00",
+    "metadata": {
+      "execution_id": "exec-6f8d6d31a2",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-f03a39efc533",
+    "name": "report_exec-c56eff09a9.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-f03a39efc533_report_exec-c56eff09a9.json",
+    "created_at": "2026-10-20T17:21:48.883432+00:00",
+    "metadata": {
+      "execution_id": "exec-c56eff09a9",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-3724eb505407",
+    "name": "auto_screen_p15-system-device_828045.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-3724eb505407_auto_screen_p15-system-device_828045.jpeg",
+    "created_at": "2026-10-20T17:21:50.988080+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-257bc3a59e80",
+    "name": "report_exec-2487ded35c.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1046,
+    "relative_path": "reports/art-257bc3a59e80_report_exec-2487ded35c.json",
+    "created_at": "2026-10-20T17:21:51.001187+00:00",
+    "metadata": {
+      "execution_id": "exec-2487ded35c",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-71d94d071bda",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-71d94d071bda_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T17:54:07.010492+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-1274102d6ce8",
+    "name": "recording_rec-6b912e03d6.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-1274102d6ce8_recording_rec-6b912e03d6.mp4",
+    "created_at": "2026-10-20T17:54:12.240274+00:00",
+    "metadata": {
+      "session_id": "rec-6b912e03d6",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T17:54:12.193332+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-e2e4c59ac1f1",
+    "name": "log_export_mock-pixel-7_1792518863.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-e2e4c59ac1f1_log_export_mock-pixel-7_1792518863.json",
+    "created_at": "2026-10-20T17:54:23.090939+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-a3686f3c2219",
+    "name": "report_exec-0ffa72788b.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 622,
+    "relative_path": "reports/art-a3686f3c2219_report_exec-0ffa72788b.json",
+    "created_at": "2026-10-20T17:54:28.843935+00:00",
+    "metadata": {
+      "execution_id": "exec-0ffa72788b",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-2013da05100e",
+    "name": "report_exec-2e5696b775.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-2013da05100e_report_exec-2e5696b775.json",
+    "created_at": "2026-10-20T17:54:29.074347+00:00",
+    "metadata": {
+      "execution_id": "exec-2e5696b775",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-8e523833bbf0",
+    "name": "report_exec-d1a5ad64c7.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 906,
+    "relative_path": "reports/art-8e523833bbf0_report_exec-d1a5ad64c7.json",
+    "created_at": "2026-10-20T17:54:37.104841+00:00",
+    "metadata": {
+      "execution_id": "exec-d1a5ad64c7",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-5bada1d58e2c",
+    "name": "auto_screen_p15-system-device_830034.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-5bada1d58e2c_auto_screen_p15-system-device_830034.jpeg",
+    "created_at": "2026-10-20T17:54:59.841124+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-121af659d707",
+    "name": "report_exec-998f9aed10.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1046,
+    "relative_path": "reports/art-121af659d707_report_exec-998f9aed10.json",
+    "created_at": "2026-10-20T17:54:59.926978+00:00",
+    "metadata": {
+      "execution_id": "exec-998f9aed10",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-c8482d0ff071",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-c8482d0ff071_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T19:59:20.587748+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-fad6fc764016",
+    "name": "recording_rec-cc7a8bcf5c.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-fad6fc764016_recording_rec-cc7a8bcf5c.mp4",
+    "created_at": "2026-10-20T19:59:21.597257+00:00",
+    "metadata": {
+      "session_id": "rec-cc7a8bcf5c",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T19:59:21.585809+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-b168ee5cf0a9",
+    "name": "log_export_mock-pixel-7_1792526362.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-b168ee5cf0a9_log_export_mock-pixel-7_1792526362.json",
+    "created_at": "2026-10-20T19:59:22.863532+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-5f83ae790cf8",
+    "name": "report_exec-73d1ac1577.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-5f83ae790cf8_report_exec-73d1ac1577.json",
+    "created_at": "2026-10-20T19:59:23.975231+00:00",
+    "metadata": {
+      "execution_id": "exec-73d1ac1577",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-33cb2c110c83",
+    "name": "report_exec-9cd4b86d41.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-33cb2c110c83_report_exec-9cd4b86d41.json",
+    "created_at": "2026-10-20T19:59:24.015210+00:00",
+    "metadata": {
+      "execution_id": "exec-9cd4b86d41",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-05f8302b74f2",
+    "name": "report_exec-ab6712a5c6.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-05f8302b74f2_report_exec-ab6712a5c6.json",
+    "created_at": "2026-10-20T19:59:26.046167+00:00",
+    "metadata": {
+      "execution_id": "exec-ab6712a5c6",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-7a8e6f176aa8",
+    "name": "auto_screen_p15-system-device_837502.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-7a8e6f176aa8_auto_screen_p15-system-device_837502.jpeg",
+    "created_at": "2026-10-20T19:59:27.478954+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-f395d52f9740",
+    "name": "report_exec-48889b3fce.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1045,
+    "relative_path": "reports/art-f395d52f9740_report_exec-48889b3fce.json",
+    "created_at": "2026-10-20T19:59:27.486464+00:00",
+    "metadata": {
+      "execution_id": "exec-48889b3fce",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
+  },
+  {
+    "artifact_id": "art-e059fcff64b0",
+    "name": "screenshot_mock-pixel-7.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 18627,
+    "relative_path": "screenshots/art-e059fcff64b0_screenshot_mock-pixel-7.jpeg",
+    "created_at": "2026-10-20T20:20:34.590426+00:00",
+    "metadata": {
+      "max_width": "720",
+      "quality": "75"
+    }
+  },
+  {
+    "artifact_id": "art-9d99dd067e30",
+    "name": "recording_rec-1d08bd56ca.mp4",
+    "artifact_type": "RECORDING",
+    "file_format": "mp4",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 1060,
+    "relative_path": "recordings/art-9d99dd067e30_recording_rec-1d08bd56ca.mp4",
+    "created_at": "2026-10-20T20:20:35.525312+00:00",
+    "metadata": {
+      "session_id": "rec-1d08bd56ca",
+      "duration_seconds": "0.1",
+      "recorded_at": "2026-10-20T20:20:35.511204+00:00"
+    }
+  },
+  {
+    "artifact_id": "art-34278c3fa930",
+    "name": "log_export_mock-pixel-7_1792527636.json",
+    "artifact_type": "LOG_EXPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 2163,
+    "relative_path": "logs/art-34278c3fa930_log_export_mock-pixel-7_1792527636.json",
+    "created_at": "2026-10-20T20:20:36.678218+00:00",
+    "metadata": {
+      "format": "json",
+      "level": "ALL"
+    }
+  },
+  {
+    "artifact_id": "art-8f51c6a0d6cd",
+    "name": "report_exec-91871708c0.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-8f51c6a0d6cd_report_exec-91871708c0.json",
+    "created_at": "2026-10-20T20:20:37.356839+00:00",
+    "metadata": {
+      "execution_id": "exec-91871708c0",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-8478b13f080b",
+    "name": "report_exec-6fb4d33e95.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:mock-pixel-7",
+    "session_token": null,
+    "file_size_bytes": 620,
+    "relative_path": "reports/art-8478b13f080b_report_exec-6fb4d33e95.json",
+    "created_at": "2026-10-20T20:20:37.374105+00:00",
+    "metadata": {
+      "execution_id": "exec-6fb4d33e95",
+      "workflow_name": "HealthCheckFlow"
+    }
+  },
+  {
+    "artifact_id": "art-319b134a560a",
+    "name": "report_exec-5a27f95093.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p14-perf-device",
+    "session_token": null,
+    "file_size_bytes": 904,
+    "relative_path": "reports/art-319b134a560a_report_exec-5a27f95093.json",
+    "created_at": "2026-10-20T20:20:39.377869+00:00",
+    "metadata": {
+      "execution_id": "exec-5a27f95093",
+      "workflow_name": "Error Containment Test"
+    }
+  },
+  {
+    "artifact_id": "art-4480ec5bfc9e",
+    "name": "auto_screen_p15-system-device_838776.jpeg",
+    "artifact_type": "SCREENSHOT",
+    "file_format": "jpeg",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 16,
+    "relative_path": "screenshots/art-4480ec5bfc9e_auto_screen_p15-system-device_838776.jpeg",
+    "created_at": "2026-10-20T20:20:40.942321+00:00",
+    "metadata": {
+      "workflow_action": "SCREENSHOT"
+    }
+  },
+  {
+    "artifact_id": "art-644ef8d489ca",
+    "name": "report_exec-59288f6848.json",
+    "artifact_type": "AUTOMATION_REPORT",
+    "file_format": "json",
+    "device_id": "android:p15-system-device",
+    "session_token": null,
+    "file_size_bytes": 1046,
+    "relative_path": "reports/art-644ef8d489ca_report_exec-59288f6848.json",
+    "created_at": "2026-10-20T20:20:40.952093+00:00",
+    "metadata": {
+      "execution_id": "exec-59288f6848",
+      "workflow_name": "Acceptance Smoke Suite"
+    }
   }
 ]

@@ -70,6 +70,12 @@
 | **Token Translation Security Gate**   | `Confirmed` | Bench global `kbt-*` tokens translate to scoped Device Lab operator roles; unauthorized actions rejected. |
 | **Bridge Exception Isolation Boundary** | `Confirmed` | Catching `ConnectError`, `ConnectTimeout`, `TimeoutException`, and `NetworkError` prevents Windows socket connection failures from bubbling into Bench. |
 | **Strict Schema Coordinate Bounding**  | `Confirmed` | Normalized `[0.0, 1.0]` coordinates enforced at Bench APIRouter layer before bridge dispatch. |
+| **PEP 517/621 Packaging Standard**     | `Confirmed` | Standardized `pyproject.toml` with `setuptools.build_meta` build backend and metadata. |
+| **Dual-Path Static Asset Resolution**  | `Confirmed` | Dynamic `static_dir` fallback resolving repository root and site-packages paths. |
+| **Multi-Launcher Execution Suite**     | `Confirmed` | Provides `run_standalone.py`, `.bat`, `.sh`, and `kelvra-device-lab` CLI script. |
+| **Release Candidate Acceptance Standard** | `Confirmed` | Verified wheel artifact, cryptographic hash, file manifests, live subprocess execution, and zero open defects required for release candidate acceptance. |
+| **Post-Acceptance Maintenance Governance Policy** | `Confirmed` | Standardized pre-task context recovery, test verification, zero-emoji sweeps, and change isolation. |
+| **3-Horizon Development Trajectory & Phase 23 Contract** | `Confirmed` | Structured development roadmap across Immediate (Daemonization & Soak), Next (WebCodecs 60 FPS), and Later (macOS & Enterprise RBAC). |
 
 ---
 
